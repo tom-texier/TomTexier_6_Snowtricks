@@ -1,14 +1,19 @@
 // Utils
+@import "utils/variables";
 
 // Vendors
 
 // Base
+@import "base/typography";
+@import "base/base";
 
 // Components
 @import "components/banner";
 
 // Layouts
+@import "layouts/header";
 
 // Pages
+@import "pages/home";
 
 // Themes

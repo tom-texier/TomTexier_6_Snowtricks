@@ -1,0 +1,37 @@
+.main-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: $color-primary;
+  padding: 15px 0;
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    a {
+      color: $color-secondary;
+      text-decoration: none;
+
+      &.logo {
+        display: flex;
+        align-items: center;
+        font-size: 25px;
+
+        img {
+          margin-right: 15px;
+        }
+      }
+    }
+
+    ul.main-menu {
+      margin: 0;
+      list-style-type: none;
+      padding: 0;
+      display: flex;
+      gap: 20px;
+    }
+  }
+}
