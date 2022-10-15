@@ -10,7 +10,7 @@
             <li><a href="#all-tricks">Figures</a></li>
             {% if not app.user %}
                 <li><a href="{{ path("security_login") }}">Se connecter</a></li>
-                <li><a href="#">S'inscrire</a></li>
+                <li><a href="{{ path("registration_register") }}">S'inscrire</a></li>
             {% else %}
                 <li><a href="{{ path("security_logout") }}">Déconnexion</a></li>
             {% endif %}
