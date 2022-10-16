@@ -1,0 +1,71 @@
+form {
+    > div {
+        margin-bottom: 20px;
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        > ul {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+
+            li {
+                font-size: 14px;
+                color: crimson;
+                margin-bottom: 5px;
+                
+                &::before {
+                    content: 'Erreur';
+                    padding: 1px 5px;
+                    color: #fff;
+                    background-color: crimson;
+                    border-radius: 5px;
+                    margin-right: 5px;
+                    font-size: 13px;
+                    line-height: 1;
+                }
+            }
+        }
+
+        input {
+            border: 1px solid #dfdfdf;
+            padding: 6px 12px;
+            border-radius: 10px;
+            display: block;
+            width: 100%;
+            transition: .4s ease;
+            line-height: 1.5;
+            appearance: none;
+
+            &:focus {
+                background-color: #fff;
+                outline: 0;
+                box-shadow: 0 0 0 2px rgba(214, 149, 91, .25);
+            }
+        }
+    }
+
+    button {
+        display: inline-block;
+        border: 1px solid $color-accent;
+        background-color: #fff;
+        padding: 7px 40px;
+        cursor: pointer;
+        border-radius: 10px;
+        transition: .4s ease;
+
+        &:hover {
+            background-color: $color-accent;
+            color: #fff;
+        }
+
+        &:focus {
+            outline: 0;
+            box-shadow: 0 0 0 2px rgba(214, 149, 91, .25);
+        }
+    }
+}

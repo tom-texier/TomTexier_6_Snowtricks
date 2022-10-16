@@ -2,5 +2,6 @@
 <p>Votre inscription sur notre site a bien été prise en compte.<br>
 Vous devez maintenant valider votre adresse mail.</p>
 
-<p>Veillez cliquer sur ce lien ci-dessous pour valider cette adresse mail</p>
-<p><a href="">Valider mon adresse</a></p>
+<p>Veuillez cliquer sur ce lien ci-dessous pour valider cette adresse mail</p>
+<p><a href="{{ absolute_url(path('registration_validation', {token: token})) }}">Valider mon adresse</a></p>
+<small><i>Ce lien expirera dans 3 heures.</i></small>
