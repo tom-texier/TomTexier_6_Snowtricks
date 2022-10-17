@@ -85,7 +85,7 @@ class RegistrationController extends AbstractController
             }
 
             $user->setVerified(true);
-            $em->flush($user);
+            $em->flush();
 
             $this->addFlash('info', "Votre adresse mail a bien été vérifié. Vous pouvez maintenant vous connecter.");
             return $this->redirectToRoute("security_login");
