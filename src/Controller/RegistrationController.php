@@ -113,6 +113,17 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute("security_login");
         }
 
+        $header = [
+            'alg' => 'HS256',
+            'typ' => 'JWT'
+        ];
+
+        $payload = [
+            'user_id' => $user->getId()
+        ];
+
+        $token = $jwt->generate($header, $payload, $this->getParameter('app.jwt_secret'));
+
         $mailService->send(
             'noreply@snowtricks.fr',
             $user->getEmail(),

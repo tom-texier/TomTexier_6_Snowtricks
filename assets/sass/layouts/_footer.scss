@@ -1,5 +1,8 @@
-footer.main-footer .container {
-    padding-top: 20px;
-    padding-bottom: 20px;
+footer.main-footer {
     background-color: $color-secondary;
+
+    .container {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
 }
