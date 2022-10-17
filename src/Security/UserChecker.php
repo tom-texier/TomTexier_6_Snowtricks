@@ -35,7 +35,7 @@ class UserChecker implements UserCheckerInterface
             $url = $this->urlGenerator->generate('registration_resend_validation', [
                 'email' => $user->getEmail()
             ]);
-            throw new CustomUserMessageAccountStatusException("Vous adresse mail n'a pas été vérifiée. <a href='custom.path'>Renvoyer l'email de validation</a>", [
+            throw new CustomUserMessageAccountStatusException("Votre adresse mail n'a pas été vérifiée. <a href='custom.path'>Renvoyer l'email de validation</a>", [
                 'custom.path' => $url
             ]);
         }

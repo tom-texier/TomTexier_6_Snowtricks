@@ -9,11 +9,15 @@
 			<h1>Inscription</h1>
 
 			{{ form_start(form) }}
-			{{ form_row(form.username) }}
-			{{ form_row(form.email) }}
-			{{ form_row(form.password) }}
+				{{ form_row(form.username) }}
+				{{ form_row(form.email) }}
+				{{ form_row(form.password) }}
 
-			<button type="submit" class="btn">S'inscrire</button>
+				<button type="submit" class="btn">S'inscrire</button>
+
+				<div class="others-actions">
+					<a href="{{ path("security_login") }}">J'ai déjà un compte</a>
+				</div>
 			{{ form_end(form) }}
 		</div>
 	</div>
