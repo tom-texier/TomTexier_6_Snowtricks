@@ -10,7 +10,7 @@
     background-color: rgba(106, 168, 79, .1);
   }
 
-  &-error {
+  &-error, &-danger {
     border-color: $alert-error;
     color: $alert-error;
     background-color: rgba(185, 25, 25, .1)
