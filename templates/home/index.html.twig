@@ -1,7 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="banner banner-homepage">
-        <img src="https://via.placeholder.com/1600x700" alt="Banner homepage">
-    </div>
+    {% include '_partials/banner.html.twig' with {
+        'url': 'https://via.placeholder.com/1600x700',
+        'alt': 'Bannière page d\'accueil',
+        'classes': 'banner-homepage'
+    } %}
+
+    <section class="tricks" id="all-tricks">
+        <div class="container">
+            {% for item in 1..3 %}
+                {% include "_partials/tricks/card.html.twig" %}
+            {% endfor %}
+        </div>
+    </section>
 {% endblock %}

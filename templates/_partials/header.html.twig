@@ -1,0 +1,19 @@
+<header class="main-header">
+    <nav class="container">
+        <a href="{{ path("homepage") }}" class="logo">
+            <img src="https://via.placeholder.com/40" alt="Logo du site">
+            Snowtricks
+        </a>
+
+        <ul class="main-menu">
+            <li><a href="{{ path("homepage") }}">Accueil</a></li>
+            <li><a href="#all-tricks">Figures</a></li>
+            {% if not app.user %}
+                <li><a href="{{ path("security_login") }}">Se connecter</a></li>
+                <li><a href="{{ path("registration_register") }}">S'inscrire</a></li>
+            {% else %}
+                <li><a href="{{ path("security_logout") }}">Déconnexion</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</header>
