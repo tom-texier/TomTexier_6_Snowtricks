@@ -63,6 +63,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $resetToken;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Media::class, cascade={"persist", "remove"})
+     */
+    private $avatarImage;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $lastname;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $firstname;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -201,6 +216,42 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setResetToken(?string $resetToken): self
     {
         $this->resetToken = $resetToken;
+
+        return $this;
+    }
+
+    public function getAvatarImage(): ?Media
+    {
+        return $this->avatarImage;
+    }
+
+    public function setAvatarImage(?Media $avatarImage): self
+    {
+        $this->avatarImage = $avatarImage;
+
+        return $this;
+    }
+
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname(?string $lastname): self
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstname(?string $firstname): self
+    {
+        $this->firstname = $firstname;
 
         return $this;
     }

@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="profile_form">
+            <h1>Mettre à jour mes informations</h1>
+
+            {{ form_start(form) }}
+                {{ form_row(form.lastname) }}
+                {{ form_row(form.firstname) }}
+                <div>
+                    {{ form_label(form.avatarImage) }}
+
+                    {% if app.user.avatarImage %}
+                        <img src="{{ absolute_url(app.user.avatarImage.url) }}" class="preview-image">
+                    {% endif %}
+
+                    {{ form_widget(form.avatarImage) }}
+                </div>
+
+                <button type="submit" class="btn">Enregistrer les modifications</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

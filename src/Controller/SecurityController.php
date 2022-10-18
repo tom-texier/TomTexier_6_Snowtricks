@@ -63,7 +63,7 @@ class SecurityController extends AbstractController
             if($user) {
                 $token = $tokenGenerator->generateToken();
                 $user->setResetToken($token);
-                $em->flush($user);
+                $em->flush();
 
                 $url = $this->generateUrl('security_reset_password', ['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
 
@@ -115,7 +115,7 @@ class SecurityController extends AbstractController
             $user->setPassword(
                 $passwordHasher->hashPassword($user, $form->get('password')->getData())
             );
-            $em->flush($user);
+            $em->flush();
 
             $this->addFlash('success', "Votre mot de passe a bien été modifié.");
 
