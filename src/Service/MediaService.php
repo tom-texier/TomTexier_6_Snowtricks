@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\Media;
+use App\Form\MediaType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\File;
@@ -47,8 +48,8 @@ class MediaService
             $filename = $upload['data'];
             $image
                 ->setName($name)
-                ->setUrl($folder . "/" . $filename)
-                ->setImage(true)
+                ->setFilename($filename)
+                ->setType(MediaType::TYPE_IMAGE)
             ;
 
             $this->em->persist($image);
@@ -75,5 +76,26 @@ class MediaService
     public function formatNameForUrl(string $name): string
     {
         return strtolower(str_replace(" ", "_", $name));
+    }
+
+    public function addVideo(string $name, string $source)
+    {
+        $video = new Media();
+
+        return $this->setVideo($video, $name, $source);
+    }
+
+    public function setVideo(Media $video, string $name, string $source)
+    {
+        $video
+            ->setType(MediaType::TYPE_VIDEO)
+            ->setName($name)
+            ->setSource($source)
+        ;
+
+        $this->em->persist($video);
+        $this->em->flush();
+
+        return $video;
     }
 }

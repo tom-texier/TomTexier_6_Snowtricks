@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="container">
-        <div class="profile_form">
+        <div class="form-container">
             <h1>Mettre à jour mes informations</h1>
 
             {{ form_start(form) }}
@@ -14,7 +14,7 @@
                     {{ form_label(form.avatarImage) }}
 
                     {% if app.user.avatarImage %}
-                        <img src="{{ absolute_url(app.user.avatarImage.url) }}" class="preview-image">
+                        <img src="{{ absolute_url(images_directory ~ app.user.avatarImage.filename) }}" class="preview-image">
                     {% endif %}
 
                     {{ form_widget(form.avatarImage) }}

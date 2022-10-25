@@ -8,8 +8,10 @@
 @import "base/base";
 
 // Components
+@import "components/buttons";
 @import "components/alerts";
 @import "components/banner";
+@import "components/trick-card";
 
 // Layouts
 @import "layouts/header";
@@ -18,9 +20,5 @@
 
 // Pages
 @import "pages/home";
-@import "pages/registration";
-@import "pages/login";
-@import "pages/forgotten_password";
-@import "pages/profile";
 
 // Themes
