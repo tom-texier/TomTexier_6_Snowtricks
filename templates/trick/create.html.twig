@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle figure{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="form-container">
+            <h1>Ajouter une nouvelle figure</h1>
+
+            {{ form_start(form) }}
+                {{ form_row(form.name) }}
+                {{ form_row(form.trickGroup) }}
+                {{ form_row(form.description) }}
+                {{ form_row(form.medias) }}
+
+                <button type="submit" class="btn align-left">Ajouter une nouvelle figure</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
