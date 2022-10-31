@@ -8,18 +8,17 @@ export function init()
 /**
  * @param {Element|null} item_collection
  */
-export function reInit(item_collection = null)
+export function reInit()
 {
     init();
-
-    if(item_collection !== null) {
-        mediaInit(item_collection);
-    }
 }
 
 function mediaCondition()
 {
     document.querySelectorAll('form #trick_medias .collection_item input[type="radio"]:not('+ initializedClass +')').forEach((input) => {
+        let collection_item = input.closest('.collection_item');
+        mediaInit(collection_item);
+
         input.addEventListener('change', function(e) {
             let parentNode = input.parentNode.parentNode.parentNode;
 
@@ -44,6 +43,20 @@ function mediaCondition()
 
 export function mediaInit(item)
 {
-    let srcBlock = item.querySelector('textarea').parentNode.style.display = 'none';
-    let fileBlock = item.querySelector('input[type="file"]').parentNode.style.display = 'block';
+    let choice = item.querySelector('input[type="radio"]:checked').value;
+    let srcBlock = item.querySelector('textarea').parentNode;
+    let fileBlock = item.querySelector('input[type="file"]').parentNode;
+
+    if(choice == 1) {
+        srcBlock.style.display = 'none';
+        fileBlock.style.display = 'block';
+    }
+    else if(choice == 2) {
+        srcBlock.style.display = 'block';
+        fileBlock.style.display = 'none';
+    }
+    else {
+        srcBlock.style.display = 'none';
+        fileBlock.style.display = 'block';
+    }
 }

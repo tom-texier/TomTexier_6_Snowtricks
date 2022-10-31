@@ -50,7 +50,7 @@ class Trick
     private $createdAt;
 
     /**
-     * @ORM\Column(type="datetime_immutable")
+     * @ORM\Column(type="datetime_immutable", nullable=true)
      */
     private $updatedAt;
 
@@ -61,7 +61,7 @@ class Trick
     private $trickGroup;
 
     /**
-     * @ORM\OneToMany(targetEntity=Media::class, mappedBy="trick")
+     * @ORM\OneToMany(targetEntity=Media::class, mappedBy="trick", cascade={"persist"})
      */
     private $medias;
 

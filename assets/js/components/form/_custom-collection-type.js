@@ -24,17 +24,18 @@ export function init()
             addActions(collection, item);
         })
 
-        checkForbiddenBtns(collection);
-
         if(collectionMinItems !== null && nbItems < collectionMinItems) {
             for(let i = nbItems + 1; i <= collectionMinItems; i++) {
                 addItem(collection);
             }
         }
+
+        checkForbiddenBtns(collection);
     })
 
     initAddBtnAction();
     initDeleteBtnAction();
+    reInitEvents();
 }
 
 function reInit()
@@ -166,7 +167,7 @@ function addItem(collection)
     addActions(collection, newItem);
     checkForbiddenBtns(collection);
 
-    reInitEvents(newItem);
+    reInitEvents();
     reInit();
 }
 
@@ -202,6 +203,9 @@ function removeBtnEvent(e)
     e.preventDefault();
     let target = e.target;
     let collection = target.closest(collectionsSelector);
+    let nbItems = getCollectionNbItems(collection);
     target.closest('.collection_item').remove();
+    collection.setAttribute('data-widget-counter', nbItems - 1);
+
     checkForbiddenBtns(collection);
 }

@@ -39,12 +39,37 @@ class TrickController extends AbstractController
                 ->setAuthor($user)
                 ->setSlug(strtolower($slugger->slug($trick->getName())));
 
-            $medias = $form->get('medias')->getData();
+            $medias = $form->get('medias');
 
-            /** @var Media $media */
             foreach ($medias as $media) {
-                $name = $media->getName();
+                $name = $media->get('name')->getData();
+                $type = $media->get('type')->getData();
+                $source = $media->get('source')->getData();
+                $image = $media->get('image')->getData();
+
+                if($type === MediaType::TYPE_IMAGE) {
+                    $imageMedia = $mediaService->addImage($image, $name, $this->getParameter('images_directory'));
+
+                    if($imageMedia != null) {
+                        $trick->addMedia($imageMedia);
+                    }
+                }
+                elseif ($type === MediaType::TYPE_VIDEO) {
+                    $videoMedia = $mediaService->addVideo($name, $source);
+
+                    if($videoMedia != null) {
+                        $trick->addMedia($videoMedia);
+                    }
+                }
             }
+
+            $em->persist($trick);
+            $em->flush();
+            $this->addFlash('success', "La figure " . $trick->getName() . " a bien été créée.");
+
+            return $this->redirectToRoute('homepage', [
+                '_fragment' => 'all-tricks'
+            ]);
         }
 
         return $this->render('trick/create.html.twig', [

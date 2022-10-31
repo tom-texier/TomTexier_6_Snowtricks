@@ -33,6 +33,7 @@ class TrickType extends AbstractType
                 'entry_type' => MediaType::class,
                 'add_message' => "<i class='fas fa-plus'></i> Ajouter un média",
                 'min_items' => 1,
+                'mapped' => false
             ])
         ;
     }

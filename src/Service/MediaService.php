@@ -53,7 +53,6 @@ class MediaService
             ;
 
             $this->em->persist($image);
-            $this->em->flush();
 
             return $image;
         }
@@ -61,7 +60,13 @@ class MediaService
         return null;
     }
 
-    public function addImage(File $file, string $name, string $folder)
+    /**
+     * @param File $file
+     * @param string $name
+     * @param string $folder
+     * @return Media|null
+     */
+    public function addImage(File $file, string $name, string $folder): ?Media
     {
         $image = new Media();
 
@@ -92,9 +97,6 @@ class MediaService
             ->setName($name)
             ->setSource($source)
         ;
-
-        $this->em->persist($video);
-        $this->em->flush();
 
         return $video;
     }

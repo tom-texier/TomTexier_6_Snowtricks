@@ -103,6 +103,18 @@ form {
         }
     }
 
+    .custom_collection_type .collection_item {
+        > div > div > div {
+            &:not(:last-child) {
+                margin-bottom: 20px;
+            }
+
+            > ul {
+
+            }
+        }
+    }
+
     .others-actions {
         width: 100%;
         margin-top: 20px;

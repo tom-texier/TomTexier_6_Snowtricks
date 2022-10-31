@@ -53,7 +53,6 @@ class MediaType extends AbstractType
 
     public function validate($media, ExecutionContextInterface $context): void
     {
-        dump($media);
         if($media) {
             if($media->getType() === MediaType::TYPE_IMAGE && !$context->getObject()['image']->getData()) {
                 $context

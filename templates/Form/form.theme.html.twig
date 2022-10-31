@@ -46,3 +46,13 @@
         </label>
     {% endif %}
 {% endblock %}
+
+{% block form_errors %}
+    {% if errors | length %}
+        <div class="alert alert-error">
+            {% for error in errors %}
+                <div>{{ error.message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}
