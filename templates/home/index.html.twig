@@ -15,10 +15,25 @@
                 </div>
             </div>
         {% endif %}
-        <div class="container tricks">
-            {% for item in 1..3 %}
-                {% include "_partials/tricks/card.html.twig" %}
-            {% endfor %}
-        </div>
+
+        {% if tricks %}
+            <div class="container tricks">
+                {% for trick in tricks %}
+                    {% include "_partials/tricks/card.html.twig" with { trick } %}
+                {% endfor %}
+            </div>
+            {% if found_items > max_per_page * next_page %}
+                <div class="container">
+                    <a href="{{ path('ajax_json_tricks') }}" class="btn" id="get-more-tricks" data-next-page="{{ next_page }}">En voir plus</a>
+                </div>
+            {% endif %}
+        {% else %}
+            <div class="alert alert-info">
+                <div>Aucune figure n'a été trouvée</div>
+                {% if app.user %}
+                    <div>Vous pouvez en créer une en cliquant sur le bouton ci-dessus</div>
+                {% endif %}
+            </div>
+        {% endif %}
     </section>
 {% endblock %}

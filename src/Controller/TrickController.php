@@ -2,15 +2,15 @@
 
 namespace App\Controller;
 
-use App\Entity\Media;
 use App\Entity\Trick;
 use App\Entity\User;
 use App\Form\MediaType;
 use App\Form\TrickType;
+use App\Repository\TrickRepository;
 use App\Service\MediaService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,6 +19,13 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class TrickController extends AbstractController
 {
+    private $trickRepository;
+
+    public function __construct(TrickRepository $trickRepository)
+    {
+        $this->trickRepository = $trickRepository;
+    }
+
     /**
      * @Route("/trick/new", name="trick_create")
      * @isGranted("ROLE_USER")
@@ -63,9 +70,9 @@ class TrickController extends AbstractController
                 }
             }
 
-            $em->persist($trick);
-            $em->flush();
-            $this->addFlash('success', "La figure " . $trick->getName() . " a bien été créée.");
+            $this->trickRepository->add($trick, true);
+
+            $this->addFlash('success', "La figure « " . $trick->getName() . " » a bien été créée.");
 
             return $this->redirectToRoute('homepage', [
                 '_fragment' => 'all-tricks'
@@ -75,5 +82,33 @@ class TrickController extends AbstractController
         return $this->render('trick/create.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/ajax/tricks", name="ajax_json_tricks", methods={"GET"}, options={"expose"=true})
+     */
+    public function getTricks(Request $request, TrickRepository $trickRepository)
+    {
+        if (!$request->isXmlHttpRequest()) {
+            return new JsonResponse(['message' => 'Accessible uniquement en Ajax !'], 400);
+        }
+
+        if(!$request->get('page')) {
+            return new JsonResponse(['message' => 'Une erreur est survenue !'], 500);
+        }
+
+        $page = intval($request->get('page'));
+
+        $tricks = $trickRepository->findByPage($page);
+
+        $datas['view'] = $this->renderView('trick/ajax/tricks.html.twig', [
+            'tricks' => $tricks,
+        ]);
+
+        $datas['found_items'] = $tricks->count();
+        $datas['next_page'] = intval($page) + 1;
+        $datas['max_per_page'] = TrickRepository::MAX_PER_PAGE;
+
+        return new JsonResponse($datas);
     }
 }

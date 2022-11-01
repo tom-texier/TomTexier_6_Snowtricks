@@ -52,8 +52,6 @@ class MediaService
                 ->setType(MediaType::TYPE_IMAGE)
             ;
 
-            $this->em->persist($image);
-
             return $image;
         }
 

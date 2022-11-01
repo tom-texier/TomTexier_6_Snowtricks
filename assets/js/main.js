@@ -1,10 +1,13 @@
-import * as Media from "./components/_media";
-import * as CustomCollectionType from "./components/form/_custom-collection-type";
+const $ = require('jquery');
+global.$ = global.jQuery = $;
+
+import * as Component from "./components/components";
+import * as Ajax from './ajax/ajax';
 
 export default function initJS()
 {
-    window.onload = (event) => {
-        Media.init();
-        CustomCollectionType.init();
-    }
+    $(document).ready(function() {
+        Component.init();
+        Ajax.init();
+    })
 }
