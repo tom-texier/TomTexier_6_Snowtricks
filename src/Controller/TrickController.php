@@ -85,6 +85,34 @@ class TrickController extends AbstractController
     }
 
     /**
+     * @Route("/tricks/{slug}", name="trick_show")
+     */
+    public function show($slug)
+    {
+        $trick = $this->trickRepository->findOneBy([
+            'slug' => $slug
+        ]);
+
+        if(!$trick) {
+            throw $this->createNotFoundException("Cette figure n'existe pas !");
+        }
+
+        return $this->render('trick/show.html.twig', [
+            'trick' => $trick,
+        ]);
+    }
+
+    /**
+     * @Route("/tricks", name="trick_all")
+     */
+    public function allTricks()
+    {
+        return $this->redirectToRoute('homepage', [
+            '_fragment' => 'all-tricks'
+        ]);
+    }
+
+    /**
      * @Route("/ajax/tricks", name="ajax_json_tricks", methods={"GET"}, options={"expose"=true})
      */
     public function getTricks(Request $request, TrickRepository $trickRepository)

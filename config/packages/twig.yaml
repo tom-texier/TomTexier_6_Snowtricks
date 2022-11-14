@@ -3,7 +3,6 @@ twig:
     form_themes: ['Form/form.theme.html.twig']
     globals:
         images_directory: '%env(IMAGES_DIRECTORY)%'
-        placeholder_image: '/assets/img/placeholder.png'
 
 when@test:
     twig:

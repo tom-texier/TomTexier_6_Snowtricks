@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ trick.name }}
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+{% endblock %}
+
+{% block body_classes %}single-trick{% endblock %}
+
+{% block body %}
+    {% set trick_thumbnail = get_trick_thumbnail(trick) %}
+    {% include '_partials/banner.html.twig' with {
+        'url': trick_thumbnail.url,
+        'alt': trick_thumbnail.name,
+        'title': trick.name,
+        'overlay': true
+    } %}
+
+    <div class="container">
+        {% if trick.medias %}
+            <section class="medias" id="medias-slider">
+                {% for media in trick.medias %}
+                    <div class="media-item">
+                        {% if media.type == 2 %}
+                            {{ media.source|raw }}
+                        {% else %}
+                            <img data-lazy="{{ absolute_url(images_directory ~ media.filename) }}" alt="{{ media.name }}">
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </section>
+        {% endif %}
+
+        <section class="description">
+            <p>{{ trick.description }}</p>
+        </section>
+
+        <section class="metas">
+            <div class="tag">Ajoutée le {{ trick.createdAt|french_date('d F Y') }}</div>
+            <div class="tag">{{ trick.trickGroup.name }}</div>
+            {% if trick.updatedAt %}
+                <div class="tag">Modifiée le {{ trick.updatedAt|french_date('d F Y') }}</div>
+            {% endif %}
+        </section>
+
+        <section class="comments">
+            {% if app.user and comment_form is defined %}
+                {{ form_start(comment_form) }}
+                {{ form_row(comment_form.text) }}
+
+                <button type="submit" class="btn align-left">Laisser un commentaire</button>
+                {{ form_end(comment_form) }}
+            {% endif %}
+
+            {% if trick.comments %}
+                <div class="comments-list">
+                    {% for comment in trick.comments %}
+                        <div class="comment">
+                            <div class="comment__author_avatar"></div>
+                            <div class="comment__text"></div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </section>
+    </div>
+
+{% endblock %}
