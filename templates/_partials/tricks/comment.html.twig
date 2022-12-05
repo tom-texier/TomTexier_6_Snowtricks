@@ -1,0 +1,35 @@
+<div class="comment">
+    <div class="comment__author-avatar">
+        <img
+                src="{{ comment.author.avatarImage
+                ? absolute_url(images_directory ~ comment.author.avatarImage.filename)
+                : get_placeholder_url() }}"
+                alt="{{ comment.author.username }}">
+    </div>
+    <div class="comment__content">
+        <div class="comment__content__author-username">
+            {{
+                comment.author.firstname != '' and comment.author.lastname != ''
+                ? comment.author.firstname ~ " " ~ comment.author.lastname
+                : comment.author.userIdentifier
+            }}
+        </div>
+        <div class="comment__content__date">{{ comment.createdAt|french_date('d F Y') }}</div>
+        <div class="comment__content__text">{{ comment.text }}</div>
+
+        <div class="comment__content__actions">
+            {% if is_granted('COMMENT_DELETE', comment) %}
+                <a
+                    href="{{ path('trick_comment_delete', {'comment_id': comment.id}) }}"
+                    title="Supprimer le commentaire"
+                    data-trigger="custom-modal"
+                    data-action="delete"
+                    data-modal-title="Êtes-vous sûr ?"
+                    data-modal-content="Êtes-vous sûr de vouloir supprimer ce commentaire ? Cette action est irréversible, une fois le commentaire supprimé, vous ne pourrez plus le récupérer."
+                >
+                    <i class="fas fa-trash-alt"></i>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</div>

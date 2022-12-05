@@ -1,9 +1,8 @@
 import * as Loader from "../utils/loader";
-import * as DeleteModal from "../components/_deleteModal";
 
 export function init()
 {
-    $('#get-more-tricks').on('click', function(e) {
+    $('#get-more-comments').on('click', function(e) {
         e.preventDefault();
 
         $(this).hide();
@@ -14,10 +13,10 @@ export function init()
 
         let more_btn = $(this);
 
-        $.get($(this).attr('href'), { page: $(this).attr('data-next-page') })
+        $.get($(this).attr('href'), { page: $(this).attr('data-next-page'), trick_id: $(this).attr('data-current-trick') })
             .done(function(data) {
                 let html = $(data.view).hide();
-                $('#all-tricks .tricks').append(html.fadeIn());
+                $(more_btn).parent().find('.comments-list').append(html.fadeIn());
 
                 let found_items = data.found_items;
                 let max_per_page = data.max_per_page;
@@ -29,8 +28,6 @@ export function init()
                 else {
                     more_btn.remove();
                 }
-
-                reInitEvents();
             })
             .fail(function(error) {
                 console.error(error);
@@ -40,9 +37,4 @@ export function init()
                 Loader.deactivate(loader, true);
             })
     })
-}
-
-function reInitEvents()
-{
-    DeleteModal.reInit();
 }

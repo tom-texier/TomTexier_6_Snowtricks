@@ -8,7 +8,7 @@
                 {% endif %}
             </div>
         {% endif %}
-        <ul id="{{ form.vars['id'] }}" class="custom_collection_type"
+        <ul id="{{ form.vars.id }}" class="custom_collection_type"
             data-prototype-name="{{ form.vars.prototype_name }}"
             data-prototype="{{ form_widget(form.vars.prototype)|e }}"
             data-widget-tags="li"
@@ -22,9 +22,28 @@
             {% endif %}
         >
             {% for itemFields in form %}
-                <li class="collection_item">
-                    {{ form_row(itemFields) }}
-                </li>
+                {% if itemFields.vars.value is instanceOf('App\\Entity\\Media') %}
+                    {% set media = itemFields.vars.value %}
+                    <li class="collection_item">
+                        <div>
+                            <div id="{{ itemFields.vars.id }}">
+                                {% for field in itemFields.children %}
+                                    {% if field.vars.type is defined and field.vars.type == 'file' %}
+                                        {{ form_row(field, {
+                                            filename: media.filename
+                                        }) }}
+                                    {% else %}
+                                        {{ form_row(field) }}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </li>
+                {% else %}
+                    <li class="collection_item">
+                        {{ form_row(itemFields) }}
+                    </li>
+                {% endif %}
             {% endfor %}
         </ul>
 
@@ -34,6 +53,18 @@
                 data-collection-selector="#{{ form.vars.id }}">{{ form.vars.add_message|raw }}</button>
         {% endif %}
     </div>
+{% endblock %}
+
+{% block file_widget %}
+    {% if filename is defined and filename is not null and form.vars.attr['data-preview'] is defined and form.vars.attr['data-preview'] == 'true' %}
+        <img src="{{ asset('uploads/images/' ~ filename) }}" class="preview-image">
+    {% endif %}
+
+    {{ form_widget(form) }}
+    <label class="form_file_input" for="{{ form.vars.id }}">
+        <span class="icon"><i class="fas fa-upload"></i></span>
+        <span class="text">Choisir un fichier</span>
+    </label>
 {% endblock %}
 
 {% block form_label %}

@@ -49,7 +49,7 @@ function reInit()
 function reInitEvents(item_collection = null)
 {
     Media.reInit();
-    DisplayConditions.reInit(item_collection);
+    DisplayConditions.reInit();
 }
 
 /**

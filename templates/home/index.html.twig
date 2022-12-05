@@ -24,7 +24,7 @@
             </div>
             {% if found_items > max_per_page * next_page %}
                 <div class="container">
-                    <a href="{{ path('ajax_json_tricks') }}" class="btn" id="get-more-tricks" data-next-page="{{ next_page }}">En voir plus</a>
+                    <a href="{{ path('ajax_trick_getTricks') }}" class="btn" id="get-more-tricks" data-next-page="{{ next_page }}">En voir plus</a>
                 </div>
             {% endif %}
         {% else %}

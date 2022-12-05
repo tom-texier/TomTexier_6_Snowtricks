@@ -5,9 +5,6 @@ export function init()
     mediaCondition();
 }
 
-/**
- * @param {Element|null} item_collection
- */
 export function reInit()
 {
     init();
@@ -43,7 +40,12 @@ function mediaCondition()
 
 export function mediaInit(item)
 {
-    let choice = item.querySelector('input[type="radio"]:checked').value;
+    let checkedOption = item.querySelector('input[type="radio"]:checked');
+    if(!checkedOption) {
+        item.querySelector('input[type="radio"]:first-of-type').checked = true;
+        checkedOption = item.querySelector('input[type="radio"]:first-of-type');
+    }
+    let choice = checkedOption.value;
     let srcBlock = item.querySelector('textarea').parentNode;
     let fileBlock = item.querySelector('input[type="file"]').parentNode;
 

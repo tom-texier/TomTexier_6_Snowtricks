@@ -5,6 +5,7 @@ namespace App\Twig;
 use App\Entity\Trick;
 use App\Form\MediaType;
 use Symfony\Component\Asset\Packages;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -13,18 +14,20 @@ class MediaExtension extends AbstractExtension
 {
     private Packages $packages;
     private Environment $twig;
+    private ParameterBagInterface $parameterBag;
 
-    public function __construct(Packages $packages, Environment $twig)
+    public function __construct(Packages $packages, Environment $twig, ParameterBagInterface $parameterBag)
     {
         $this->packages = $packages;
         $this->twig = $twig;
+        $this->parameterBag = $parameterBag;
     }
 
     public function getFunctions()
     {
         return [
             new TwigFunction('get_trick_thumbnail', [$this, 'getTrickThumbnail']),
-            new TwigFunction('get_placeholder', [$this, 'getPlaceholder']),
+            new TwigFunction('get_placeholder_url', [$this, 'getPlaceholder']),
         ];
     }
 
@@ -59,6 +62,6 @@ class MediaExtension extends AbstractExtension
 
     private function getUploadsDirectory()
     {
-        return $this->twig->getGlobals()['images_directory'];
+        return $this->parameterBag->get('images_directory_public');
     }
 }

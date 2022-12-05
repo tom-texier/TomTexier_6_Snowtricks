@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Media;
+use App\Service\MediaService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -11,6 +12,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
@@ -19,6 +22,13 @@ class MediaType extends AbstractType
 {
     const TYPE_IMAGE = 1;
     const TYPE_VIDEO = 2;
+
+    private MediaService $mediaService;
+
+    public function __construct(MediaService $mediaService)
+    {
+        $this->mediaService = $mediaService;
+    }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -34,27 +44,53 @@ class MediaType extends AbstractType
                     'Vidéo' => self::TYPE_VIDEO
                 ],
                 'expanded' => true,
-                'data' => self::TYPE_IMAGE
+//                'data' => self::TYPE_IMAGE
             ])
             ->add('source', TextareaType::class, [
                 'label' => "Source",
                 'required' => false,
                 'attr' => [
-                    'placeholder' => "Collez ici la balise embed générée par la plateforme de streaming",
+                    'placeholder' => "Collez ici la balise d'intégration générée par la plateforme de streaming",
                 ]
             ])
             ->add('image', FileType::class, [
                 'label' => "",
                 'required' => false,
-                'mapped' => false
-            ])
+                'mapped' => false,
+                'attr' => [
+                    'data-preview' => 'true'
+                ],
+//                'empty_data' => $file
+            ]);
         ;
+
+//        $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) {
+//            $form = $event->getForm();
+//            $formDatas = $event->getData();
+//
+//            if($formDatas instanceof Media && $formDatas->getType() === MediaType::TYPE_IMAGE) {
+//                $file = $this->mediaService->getFile($formDatas);
+//            }
+//            else {
+//                $file = null;
+//            }
+//
+//            $form->add('image', FileType::class, [
+//                'label' => "",
+//                'required' => false,
+//                'mapped' => false,
+//                'attr' => [
+//                    'data-preview' => 'true'
+//                ],
+//                'empty_data' => $file
+//            ]);
+//        });
     }
 
     public function validate($media, ExecutionContextInterface $context): void
     {
-        if($media) {
-            if($media->getType() === MediaType::TYPE_IMAGE && !$context->getObject()['image']->getData()) {
+        if($media instanceof Media) {
+            if($media->getType() === MediaType::TYPE_IMAGE && !$context->getObject()['image']->getData() && !$media->getFilename()) {
                 $context
                     ->buildViolation("Vous devez choisir un fichier")
                     ->atPath('image')

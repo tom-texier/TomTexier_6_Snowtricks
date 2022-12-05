@@ -25,4 +25,32 @@
     outline: 0;
     box-shadow: 0 0 0 2px rgba(214, 149, 91, .25);
   }
+
+  &--danger {
+    border: 1px solid $alert-error;
+
+    &:hover {
+      background-color: $alert-error;
+      color: #fff;
+    }
+
+    &:focus {
+      outline: 0;
+      box-shadow: 0 0 0 2px rgba(220, 20, 60, .25);
+    }
+  }
+
+  &--success {
+    border: 1px solid $alert-success;
+
+    &:hover {
+      background-color: $alert-success;
+      color: #fff;
+    }
+
+    &:focus {
+      outline: 0;
+      box-shadow: 0 0 0 2px rgba(60, 220, 20, .25);
+    }
+  }
 }

@@ -2,7 +2,7 @@ twig:
     default_path: '%kernel.project_dir%/templates'
     form_themes: ['Form/form.theme.html.twig']
     globals:
-        images_directory: '%env(IMAGES_DIRECTORY)%'
+        images_directory: '/uploads/images/'
 
 when@test:
     twig:

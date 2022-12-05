@@ -5,19 +5,28 @@ namespace App\Service;
 use App\Entity\Media;
 use App\Form\MediaType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class MediaService
 {
     private EntityManagerInterface $em;
+    private SluggerInterface $slugger;
+    private ParameterBagInterface $params;
 
-    public function __construct(EntityManagerInterface $em)
+    const CREATE_IMAGE_ERROR = "Impossible d'uploader l'image sur le serveur.";
+
+    public function __construct(EntityManagerInterface $em, SluggerInterface $slugger, ParameterBagInterface $params)
     {
         $this->em = $em;
+        $this->slugger = $slugger;
+        $this->params = $params;
     }
 
-    public function uploadMedia(File $file, string $folder, $name = null)
+    public function uploadMedia(File $file, string $folder, $name = null): array
     {
         if(is_null($name)) {
             $name = pathinfo($file->getFilename(), PATHINFO_FILENAME);
@@ -31,7 +40,7 @@ class MediaService
             $data = $newFilename;
         } catch (FileException $e) {
             $isUpload = false;
-            $data = "Une erreur est survenue : " . $e;
+            $data = self::CREATE_IMAGE_ERROR;
         }
 
         return [
@@ -40,6 +49,13 @@ class MediaService
         ];
     }
 
+    /**
+     * @param Media $image
+     * @param File $file
+     * @param string $name
+     * @param string $folder
+     * @return Media|string|null
+     */
     public function setImage(Media $image, File $file, string $name, string $folder)
     {
         $upload = $this->uploadMedia($file, $folder, $name);
@@ -55,6 +71,10 @@ class MediaService
             return $image;
         }
 
+        if(!empty($upload['data'])) {
+            return $upload['data'];
+        }
+
         return null;
     }
 
@@ -64,7 +84,7 @@ class MediaService
      * @param string $folder
      * @return Media|null
      */
-    public function addImage(File $file, string $name, string $folder): ?Media
+    public function addImage(File $file, string $name, string $folder)
     {
         $image = new Media();
 
@@ -78,7 +98,7 @@ class MediaService
      */
     public function formatNameForUrl(string $name): string
     {
-        return strtolower(str_replace(" ", "_", $name));
+        return $this->slugger->slug($name);
     }
 
     public function addVideo(string $name, string $source)
@@ -97,5 +117,18 @@ class MediaService
         ;
 
         return $video;
+    }
+
+    public function getFile(Media $media)
+    {
+        $mime_type = mime_content_type($this->params->get('images_directory') . $media->getFilename());
+        $file = new UploadedFile($this->params->get('images_directory') . $media->getFilename(), $media->getFilename(), $mime_type);
+
+        return $file;
+    }
+
+    public function removeFile(Media $media): bool
+    {
+        return unlink($this->params->get('images_directory') . $media->getFilename());
     }
 }

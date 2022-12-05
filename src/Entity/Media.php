@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Form\MediaType;
 use App\Repository\MediaRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -39,6 +40,7 @@ class Media
 
     /**
      * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="medias")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $trick;
 
@@ -74,7 +76,7 @@ class Media
         return $this->filename;
     }
 
-    public function setFilename(string $filename): self
+    public function setFilename(?string $filename): self
     {
         $this->filename = $filename;
 

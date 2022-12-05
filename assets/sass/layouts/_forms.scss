@@ -228,4 +228,45 @@ form {
             }
         }
     }
+
+    input[type="file"] {
+        display: none;
+    }
+
+    label.form_file_input {
+        position: relative;
+        border: 1px solid #dfdfdf;
+        padding: 6px 12px;
+        border-radius: 10px;
+        display: block;
+        width: 100%;
+        transition: 0.4s ease;
+        line-height: 1.5;
+        font-family: "Roboto", sans-serif;
+        cursor: pointer;
+        font-size: 15px;
+
+        &:hover {
+            text-decoration: underline;
+        }
+
+        .icon {
+            margin-right: 10px;
+        }
+    }
+
+    .actions {
+        display: flex;
+        flex-wrap: wrap;
+
+        > * {
+            width: max-content;
+            max-width: 100%;
+            margin: 0;
+
+            &:not(:last-child) {
+                margin-right: 10px;
+            }
+        }
+    }
 }

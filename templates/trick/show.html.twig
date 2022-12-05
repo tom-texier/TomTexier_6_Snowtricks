@@ -35,7 +35,7 @@
         {% endif %}
 
         <section class="description">
-            <p>{{ trick.description }}</p>
+            <p>{{ trick.description | nl2br }}</p>
         </section>
 
         <section class="metas">
@@ -47,23 +47,28 @@
         </section>
 
         <section class="comments">
-            {% if app.user and comment_form is defined %}
-                {{ form_start(comment_form) }}
-                {{ form_row(comment_form.text) }}
+            {% if app.user and commentForm is defined %}
+                <div class="form-container">
+                    {{ form_start(commentForm, {
+                        'attr': {'id': 'addCommentForm'}
+                    }) }}
+                        {{ form_row(commentForm.text) }}
 
-                <button type="submit" class="btn align-left">Laisser un commentaire</button>
-                {{ form_end(comment_form) }}
+                        <button type="submit" class="btn align-left">Laisser un commentaire</button>
+                    {{ form_end(commentForm) }}
+                </div>
             {% endif %}
 
-            {% if trick.comments %}
+            {% if comments|length %}
                 <div class="comments-list">
-                    {% for comment in trick.comments %}
-                        <div class="comment">
-                            <div class="comment__author_avatar"></div>
-                            <div class="comment__text"></div>
-                        </div>
+                    {% for comment in comments %}
+                        {% include '_partials/tricks/comment.html.twig' with { comment } %}
                     {% endfor %}
                 </div>
+
+                {% if found_comments > max_comments_per_page * next_comments_page %}
+                    <a href="{{ path('ajax_comment_getComments') }}" class="btn" id="get-more-comments" data-next-page="{{ next_comments_page }}" data-current-trick="{{ trick.id }}">En voir plus</a>
+                {% endif %}
             {% endif %}
         </section>
     </div>
