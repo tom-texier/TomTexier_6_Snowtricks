@@ -12,7 +12,7 @@ export function init()
 
         let Modal = new CustomModal(title, content);
         Modal
-            .addAction("Supprimer", $(this).attr('href'), 'btn')
+            .addAction("Supprimer", $(this).attr('href'), 'btn btn--danger')
             .open();
     })
 }
