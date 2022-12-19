@@ -24,6 +24,31 @@
 }
 
 form {
+    .form-error {
+        color: $alert-error;
+        font-weight: 600;
+        margin-bottom: 10px;
+        font-size: 13px;
+        display: flex;
+        gap: 5px;
+
+        .tag {
+            background-color: $alert-error;
+            color: #fff;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .message {
+            margin-top: 3px;
+        }
+    }
+
     span.required {
         color: crimson;
     }
@@ -266,6 +291,23 @@ form {
 
             &:not(:last-child) {
                 margin-right: 10px;
+            }
+        }
+    }
+
+    .form-custom-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 5px;
+
+        a {
+            font-size: 13px;
+            text-decoration: none;
+            color: $color-primary;
+
+            &:hover {
+                text-decoration: underline;
             }
         }
     }

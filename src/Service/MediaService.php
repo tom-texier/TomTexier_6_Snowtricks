@@ -122,13 +122,16 @@ class MediaService
     public function getFile(Media $media)
     {
         $mime_type = mime_content_type($this->params->get('images_directory') . $media->getFilename());
-        $file = new UploadedFile($this->params->get('images_directory') . $media->getFilename(), $media->getFilename(), $mime_type);
 
-        return $file;
+        return new UploadedFile($this->params->get('images_directory') . $media->getFilename(), $media->getFilename(), $mime_type);
     }
 
     public function removeFile(Media $media): bool
     {
-        return unlink($this->params->get('images_directory') . $media->getFilename());
+        if(file_exists($this->params->get('images_directory') . $media->getFilename())) {
+            return unlink($this->params->get('images_directory') . $media->getFilename());
+        }
+
+        return true;
     }
 }

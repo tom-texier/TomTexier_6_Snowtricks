@@ -55,6 +55,19 @@
     </div>
 {% endblock %}
 
+{% block _trick_trickGroup_widget %}
+    {{ form_widget(form) }}
+    <div class="form-custom-actions">
+        <a
+            href="#"
+            data-open="modal-ajax"
+            data-target="{{ path('ajax_groups_getForm') }}"
+        >
+            Ajouter un nouveau groupe
+        </a>
+    </div>
+{% endblock %}
+
 {% block file_widget %}
     {% if filename is defined and filename is not null and form.vars.attr['data-preview'] is defined and form.vars.attr['data-preview'] == 'true' %}
         <img src="{{ asset('uploads/images/' ~ filename) }}" class="preview-image">
@@ -80,10 +93,11 @@
 
 {% block form_errors %}
     {% if errors | length %}
-        <div class="alert alert-error">
-            {% for error in errors %}
-                <div>{{ error.message }}</div>
-            {% endfor %}
-        </div>
+        {% for error in errors %}
+            <div class="form-error">
+                <span class="tag">&times;</span>
+                <span class="message">{{ error.message }}</span>
+            </div>
+        {% endfor %}
     {% endif %}
 {% endblock %}

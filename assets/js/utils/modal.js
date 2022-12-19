@@ -1,7 +1,12 @@
+import {uniqid} from "./uniqid";
+import {callAjax} from "../ajax/ajax";
+import * as Loader from "./loader";
+
 export class CustomModal
 {
     constructor(title, content, body_fixed = true) {
-        this.modal = "";
+        this._id = uniqid('modal-');
+        this._object = "";
         this.body_fixed = body_fixed;
         this._title = title;
         this._content = content;
@@ -19,13 +24,14 @@ export class CustomModal
             this.#createContainer();
         }
 
-        this.modal = this.getContainerObject();
+        this._object = this.getContainerObject();
     }
 
     #createContainer() {
-        const html =
+        let html =
             "<div id='custom-modal-container'>" +
                 "<div class='custom-modal-content'>" +
+                    "<div class='close-icon'><i class='fas fa-times'></i></div>" +
                     "<div class='custom-modal-title'></div>" +
                     "<div class='custom-modal-description'></div>" +
                     "<div class='custom-modal-actions'></div>" +
@@ -33,6 +39,12 @@ export class CustomModal
             "</div>";
 
         $('body').append(html);
+
+        $('#custom-modal-container').find('.close-icon').on('click', () => {
+            this.close();
+        })
+
+        this.#initEvents();
     }
 
     #containerExist() {
@@ -45,12 +57,14 @@ export class CustomModal
 
     open(duration = 200) {
         this.#beforeOpen();
-        this.modal.fadeIn(duration);
+        this._object.fadeIn(duration);
+        this.#afterOpen();
     }
 
     close(duration = 200) {
         this.#beforeClose();
-        this.modal.fadeOut(duration);
+        this._object.fadeOut(duration);
+        this.#afterClose();
     }
 
     #beforeOpen() {
@@ -60,7 +74,11 @@ export class CustomModal
 
         this.initContent();
 
-        this.modal.trigger('custom-modal/open/before');
+        this._object.trigger(`custom-modal/${this._id}/open/before`);
+    }
+
+    #afterOpen() {
+        this._object.trigger(`custom-modal/${this._id}/open/after`);
     }
 
     #beforeClose() {
@@ -68,14 +86,22 @@ export class CustomModal
             $('html, body').removeClass('custom-modal-open');
         }
 
-        this.modal.trigger('custom-modal/close/before');
+        this._object.trigger(`custom-modal/${this._id}/close/before`);
+    }
+
+    #afterClose() {
+        this._object.trigger(`custom-modal/${this._id}/close/after`);
+    }
+
+    #initEvents() {
+
     }
 
     initContent() {
         this.resetContent();
 
-        this.modal.find('.custom-modal-content .custom-modal-title').html(this._title);
-        this.modal.find('.custom-modal-content .custom-modal-description').html(this._content);
+        this._object.find('.custom-modal-content .custom-modal-title').html(this._title);
+        this._object.find('.custom-modal-content .custom-modal-description').html(this._content);
 
         this.actions.forEach((action) => {
             let btn = $(`<a href="${action.url}" class="${action.classes}">${action.title}</a>`);
@@ -87,21 +113,21 @@ export class CustomModal
                 })
             }
 
-            this.modal.find('.custom-modal-content .custom-modal-actions').append(btn);
+            this._object.find('.custom-modal-content .custom-modal-actions').append(btn);
         })
     }
 
     resetContent() {
-        this.modal.find('.custom-modal-content .custom-modal-title').html("");
-        this.modal.find('.custom-modal-content .custom-modal-description').html("");
-        this.modal.find('.custom-modal-content .custom-modal-actions').html("");
+        this._object.find('.custom-modal-content .custom-modal-title').html("");
+        this._object.find('.custom-modal-content .custom-modal-description').html("");
+        this._object.find('.custom-modal-content .custom-modal-actions').html("");
     }
 
     /**
      * Add a button in the modal
-     * @param {String} title
-     * @param {String} url
-     * @param {String} classes
+     * @param {string} title
+     * @param {string} url
+     * @param {string} classes
      */
     addAction(title, url, classes = "") {
         this.actions.push({title, url, classes});
@@ -109,15 +135,58 @@ export class CustomModal
         return this;
     }
 
+    /**
+     * Remove all actions in the modal
+     */
+    removeAllActions() {
+        this.actions = [];
+        this._object.find('.custom-modal-content .custom-modal-actions').html("");
+
+        return this;
+    }
+
+    /**
+     * Init ajax request and listener on an element inside the modal
+     * @param {string} action
+     * @param {function} done
+     * @param {function} fail
+     * @param {function} always
+     */
+    initFormRequest(action, done = () => {}, fail = () => {}, always = () => {}) {
+        let selector = $(this.getObject).find('form');
+
+        $(selector).off('submit');
+        $(selector).on('submit', function(e) {
+            e.preventDefault();
+            const formDataObj = {};
+            const loader = Loader.getLoader();
+            Loader.activate(loader);
+            $(this).append(loader);
+            (new FormData(e.target)).forEach((value, key) => (formDataObj[key] = value));
+
+            callAjax(action, formDataObj, done, fail, always);
+        })
+    }
+
     set title(value) {
         this._title = value;
+        this._object.find('.custom-modal-content .custom-modal-title').html(value);
 
         return this;
     }
 
     set content(value) {
         this._content = value;
+        this._object.find('.custom-modal-content .custom-modal-description').html(value);
 
         return this;
+    }
+
+    get id() {
+        return this._id;
+    }
+
+    get getObject() {
+        return this._object;
     }
 }

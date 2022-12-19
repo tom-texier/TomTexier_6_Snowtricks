@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Group;
 use App\Entity\Trick;
 use App\Form\Tools\CustomCollectionType;
+use App\Repository\GroupRepository;
 use App\Repository\TrickRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
