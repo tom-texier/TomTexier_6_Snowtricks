@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Form\MediaType;
 use App\Repository\MediaRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -23,19 +24,30 @@ class Media
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $url;
+    private $filename;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="smallint")
      */
-    private $isImage;
+    private $type;
 
     /**
      * @ORM\Column(type="datetime_immutable")
      */
     private $createdAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="medias")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */
+    private $trick;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $source;
 
     public function __construct()
     {
@@ -59,26 +71,26 @@ class Media
         return $this;
     }
 
-    public function getUrl(): ?string
+    public function getFilename(): ?string
     {
-        return $this->url;
+        return $this->filename;
     }
 
-    public function setUrl(string $url): self
+    public function setFilename(?string $filename): self
     {
-        $this->url = $url;
+        $this->filename = $filename;
 
         return $this;
     }
 
-    public function isImage(): ?bool
+    public function getType(): ?int
     {
-        return $this->isImage;
+        return $this->type;
     }
 
-    public function setImage(bool $isImage): self
+    public function setType(int $type): self
     {
-        $this->isImage = $isImage;
+        $this->type = $type;
 
         return $this;
     }
@@ -91,6 +103,30 @@ class Media
     public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getTrick(): ?Trick
+    {
+        return $this->trick;
+    }
+
+    public function setTrick(?Trick $trick): self
+    {
+        $this->trick = $trick;
+
+        return $this;
+    }
+
+    public function getSource(): ?string
+    {
+        return $this->source;
+    }
+
+    public function setSource(?string $source): self
+    {
+        $this->source = $source;
 
         return $this;
     }

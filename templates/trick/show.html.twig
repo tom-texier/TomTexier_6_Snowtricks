@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ trick.name }}
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+{% endblock %}
+
+{% block body_classes %}single-trick{% endblock %}
+
+{% block body %}
+    {% set trick_thumbnail = get_trick_thumbnail(trick) %}
+    {% include '_partials/banner.html.twig' with {
+        'url': trick_thumbnail.url,
+        'alt': trick_thumbnail.name,
+        'title': trick.name,
+        'overlay': true
+    } %}
+
+    <div class="container">
+        {% if trick.medias %}
+            <section class="medias" id="medias-slider">
+                {% for media in trick.medias %}
+                    <div class="media-item">
+                        {% if media.type == 2 %}
+                            {{ media.source|raw }}
+                        {% else %}
+                            <img data-lazy="{{ absolute_url(images_directory ~ media.filename) }}" alt="{{ media.name }}">
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </section>
+        {% endif %}
+
+        <section class="description">
+            <p>{{ trick.description | nl2br }}</p>
+        </section>
+
+        <section class="metas">
+            <div class="tag">Ajoutée le {{ trick.createdAt|french_date('d F Y') }}</div>
+            <div class="tag">{{ trick.trickGroup.name }}</div>
+            {% if trick.updatedAt %}
+                <div class="tag">Modifiée le {{ trick.updatedAt|french_date('d F Y') }}</div>
+            {% endif %}
+        </section>
+
+        <section class="comments">
+            {% if app.user and commentForm is defined %}
+                <div class="form-container">
+                    {{ form_start(commentForm, {
+                        'attr': {'id': 'addCommentForm'}
+                    }) }}
+                        {{ form_row(commentForm.text) }}
+
+                        <button type="submit" class="btn align-left">Laisser un commentaire</button>
+                    {{ form_end(commentForm) }}
+                </div>
+            {% endif %}
+
+            {% if comments|length %}
+                <div class="comments-list">
+                    {% for comment in comments %}
+                        {% include '_partials/tricks/comment.html.twig' with { comment } %}
+                    {% endfor %}
+                </div>
+
+                {% if found_comments > max_comments_per_page * next_comments_page %}
+                    <a href="{{ path('ajax_comment_getComments') }}" class="btn" id="get-more-comments" data-next-page="{{ next_comments_page }}" data-current-trick="{{ trick.id }}">En voir plus</a>
+                {% endif %}
+            {% endif %}
+        </section>
+    </div>
+
+{% endblock %}

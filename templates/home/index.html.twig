@@ -7,11 +7,33 @@
         'classes': 'banner-homepage'
     } %}
 
-    <section class="tricks" id="all-tricks">
-        <div class="container">
-            {% for item in 1..3 %}
-                {% include "_partials/tricks/card.html.twig" %}
-            {% endfor %}
-        </div>
+    <section id="all-tricks">
+        {% if app.user %}
+            <div class="container">
+                <div class="row-actions">
+                    <a href="{{ path('trick_create') }}" class="row-actions-item btn">Ajouter une nouvelle figure</a>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if tricks %}
+            <div class="container tricks">
+                {% for trick in tricks %}
+                    {% include "_partials/tricks/card.html.twig" with { trick } %}
+                {% endfor %}
+            </div>
+            {% if found_items > max_per_page * next_page %}
+                <div class="container">
+                    <a href="{{ path('ajax_trick_getTricks') }}" class="btn" id="get-more-tricks" data-next-page="{{ next_page }}">En voir plus</a>
+                </div>
+            {% endif %}
+        {% else %}
+            <div class="alert alert-info">
+                <div>Aucune figure n'a été trouvée</div>
+                {% if app.user %}
+                    <div>Vous pouvez en créer une en cliquant sur le bouton ci-dessus</div>
+                {% endif %}
+            </div>
+        {% endif %}
     </section>
 {% endblock %}

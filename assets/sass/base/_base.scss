@@ -14,3 +14,11 @@ body, html {
 * {
   box-sizing: border-box;
 }
+
+img {
+  transition: .2s ease;
+
+  &[data-lazy] {
+    opacity: 0;
+  }
+}

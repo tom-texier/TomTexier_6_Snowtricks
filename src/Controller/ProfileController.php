@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Media;
 use App\Entity\User;
 use App\Form\ProfileType;
 use App\Service\MediaService;
@@ -37,13 +38,18 @@ class ProfileController extends AbstractController
                 $name = $user->getLastname() . "_" . $user->getFirstname() . "_profile";
                 $imageMedia = $mediaService->addImage($image, $name, $this->getParameter('images_directory'));
 
-                if($imageMedia != null) {
+                if($imageMedia instanceof Media) {
                     $user->setAvatarImage($imageMedia);
+                }
+                else {
+                    $this->addFlash('error', "Une erreur erreur est survenue : " . ($imageMedia ?: ""));
                 }
             }
 
             $em->flush();
             $this->addFlash('success', "Votre profil a bien été mis à jour");
+
+            return $this->redirectToRoute('profile_index');
         }
 
         return $this->render('profile/index.html.twig', [

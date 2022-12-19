@@ -7,18 +7,18 @@
   &-success {
     border-color: $alert-success;
     color: $alert-success;
-    background-color: rgba(106, 168, 79, .1);
+    background-color: rgba(60, 220, 20, .1);
   }
 
   &-error, &-danger {
     border-color: $alert-error;
     color: $alert-error;
-    background-color: rgba(185, 25, 25, .1)
+    background-color: rgba(220, 20, 60, .1)
   }
 
   &-info {
     border-color: $alert-info;
     color: $alert-info;
-    background-color: rgba(61, 133, 198, .1);
+    background-color: rgba(20, 60, 220, .1);
   }
 }
