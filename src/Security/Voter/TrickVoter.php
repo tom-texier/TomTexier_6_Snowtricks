@@ -71,7 +71,7 @@ class TrickVoter extends Voter
             return false;
         }
 
-        return $user === $trick->getAuthor();
+        return $user === $trick->getAuthor() || $user->isAdmin();
     }
 
     /**
@@ -89,6 +89,6 @@ class TrickVoter extends Voter
             return false;
         }
 
-        return $user === $trick->getAuthor();
+        return $user === $trick->getAuthor() || $user->isAdmin();
     }
 }

@@ -10,9 +10,9 @@
             {{ form_start(form) }}
                 {{ form_row(form.lastname) }}
                 {{ form_row(form.firstname) }}
-                {{ form_row(form.avatarImage, {
+                {{ form_row(form.avatarImage, app.user.avatarImage ? {
                     filename: app.user.avatarImage.filename
-                }) }}
+                } : {}) }}
                 <button type="submit" class="btn">Enregistrer les modifications</button>
             {{ form_end(form) }}
         </div>

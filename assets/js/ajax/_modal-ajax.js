@@ -63,7 +63,6 @@ function initForm(Modal, view, resultTarget = null)
         },
         () => {
             initForm(Modal, view);
-            // Loader.deactivate($('.loader'))
         }
     );
 }
