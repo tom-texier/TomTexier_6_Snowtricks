@@ -343,7 +343,7 @@ class AppFixtures extends Fixture
         ##################################################################
 
         ############################## COMMENTS ##############################
-        for($i = 0; $i < 100; $i++) {
+        for($i = 0; $i < 500; $i++) {
             $comment = new Comment();
             /** @var Trick $trick */
             $trick = $faker->randomElement($tricks);

@@ -17,7 +17,7 @@ export function init()
         $.get($(this).attr('href'), { page: $(this).attr('data-next-page') })
             .done(function(data) {
                 let html = $(data.view).hide();
-                $('#all-tricks .tricks').append(html.fadeIn());
+                $('#all-tricks .tricks .grid').append(html.fadeIn());
 
                 let found_items = data.found_items;
                 let max_per_page = data.max_per_page;
@@ -28,6 +28,10 @@ export function init()
                 }
                 else {
                     more_btn.remove();
+                }
+
+                if($('#all-tricks .tricks .grid .card').length > max_per_page) {
+                    $('#all-tricks .tricks #to-top').addClass('active');
                 }
 
                 reInitEvents();

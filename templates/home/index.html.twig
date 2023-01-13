@@ -18,9 +18,14 @@
 
         {% if tricks %}
             <div class="container tricks">
-                {% for trick in tricks %}
-                    {% include "_partials/tricks/card.html.twig" with { trick } %}
-                {% endfor %}
+                <div class="grid">
+                    {% for trick in tricks %}
+                        {% include "_partials/tricks/card.html.twig" with { trick } %}
+                    {% endfor %}
+                </div>
+                <a id="to-top{{ max_per_page * next_page > max_per_page ? ' active' : '' }}" href="#all-tricks">
+                    <i class="fas fa-arrow-up"></i>
+                </a>
             </div>
             {% if found_items > max_per_page * next_page %}
                 <div class="container">

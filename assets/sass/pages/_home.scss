@@ -40,8 +40,55 @@ a#see-tricks {
   }
 
   .container.tricks {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 20px;
+    position: relative;
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 20px;
+    }
+
+    #to-top {
+      display: none;
+      position: sticky;
+      margin-top: 10px;
+      bottom: 30px;
+      margin-left: auto;
+      width: max-content;
+      text-decoration: none;
+
+      i {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        color: #fff;
+        background-color: $color-primary;
+      }
+
+      &:hover i {
+        animation: slideUp .5s ease alternate infinite;
+      }
+
+      &.active {
+        display: flex;
+      }
+    }
+  }
+
+  .loader {
+    display: block;
+    margin: 20px auto 0;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-20px);
   }
 }
