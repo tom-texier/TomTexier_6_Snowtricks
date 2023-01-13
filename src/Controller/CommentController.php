@@ -93,11 +93,12 @@ class CommentController extends AbstractController
 
     /**
      * @Route("/trick/comment/delete/{comment_id}", name="trick_comment_delete")
-     * @IsGranted("COMMENT_DELETE")
      */
     public function delete($comment_id)
     {
         $comment = $this->commentRepository->find($comment_id);
+
+        $this->denyAccessUnlessGranted("COMMENT_DELETE", $comment);
 
         if(!$comment) {
             throw $this->createNotFoundException("Ce commentaire n'existe pas !");

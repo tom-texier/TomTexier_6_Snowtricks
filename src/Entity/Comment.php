@@ -28,13 +28,13 @@ class Comment
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comments", cascade={"remove"})
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comments")
      * @ORM\JoinColumn(onDelete="CASCADE", nullable=false)
      */
     private $author;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="comments", cascade={"remove"})
+     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="comments")
      * @ORM\JoinColumn(onDelete="CASCADE", nullable=false)
      */
     private $trick;
