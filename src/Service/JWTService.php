@@ -29,7 +29,7 @@ class JWTService {
         return $jwt;
     }
 
-    public function encode($value, $to_json = true)
+    public function encode($value, bool $to_json = true)
     {
         if($to_json) {
             return $this->clean(base64_encode(json_encode($value)));
@@ -44,7 +44,7 @@ class JWTService {
         return str_replace(['+', '/', '='], ['-', '_', ''], $str);
     }
 
-    public function decode($value, $from_json = true)
+    public function decode($value, bool $from_json = true)
     {
         if($from_json) {
             return json_decode(base64_decode($value), true);
@@ -74,7 +74,7 @@ class JWTService {
         $isValid &= !$this->isExpired($token);
         $isValid &= $this->isValidSignatory($token, $secret);
 
-        return $isValid;
+        return boolval($isValid);
     }
 
     public function isFormatted($token) {

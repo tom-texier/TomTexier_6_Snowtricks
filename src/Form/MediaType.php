@@ -44,7 +44,6 @@ class MediaType extends AbstractType
                     'Vidéo' => self::TYPE_VIDEO
                 ],
                 'expanded' => true,
-//                'data' => self::TYPE_IMAGE
             ])
             ->add('source', TextareaType::class, [
                 'label' => "Source",
@@ -60,31 +59,8 @@ class MediaType extends AbstractType
                 'attr' => [
                     'data-preview' => 'true'
                 ],
-//                'empty_data' => $file
             ]);
         ;
-
-//        $builder->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) {
-//            $form = $event->getForm();
-//            $formDatas = $event->getData();
-//
-//            if($formDatas instanceof Media && $formDatas->getType() === MediaType::TYPE_IMAGE) {
-//                $file = $this->mediaService->getFile($formDatas);
-//            }
-//            else {
-//                $file = null;
-//            }
-//
-//            $form->add('image', FileType::class, [
-//                'label' => "",
-//                'required' => false,
-//                'mapped' => false,
-//                'attr' => [
-//                    'data-preview' => 'true'
-//                ],
-//                'empty_data' => $file
-//            ]);
-//        });
     }
 
     public function validate($media, ExecutionContextInterface $context): void

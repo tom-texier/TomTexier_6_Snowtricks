@@ -61,14 +61,14 @@ class TrickController extends AbstractController
                 if($type === MediaType::TYPE_IMAGE) {
                     $imageMedia = $mediaService->addImage($image, $name, $this->getParameter('images_directory'));
 
-                    if($imageMedia != null) {
+                    if($imageMedia instanceof Media) {
                         $trick->addMedia($imageMedia);
                     }
                 }
                 elseif ($type === MediaType::TYPE_VIDEO) {
                     $videoMedia = $mediaService->addVideo($name, $source);
 
-                    if($videoMedia != null) {
+                    if($videoMedia instanceof Media) {
                         $trick->addMedia($videoMedia);
                     }
                 }
