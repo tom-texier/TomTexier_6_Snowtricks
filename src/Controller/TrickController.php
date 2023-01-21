@@ -90,6 +90,8 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/tricks/{slug}", name="trick_show")
+     * 
+     * @param string $slug
      */
     public function show($slug): Response
     {
@@ -159,6 +161,8 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/tricks/{trick_id}/delete", name="trick_delete")
+     * 
+     * @param int $trick_id
      */
     public function delete($trick_id): Response
     {
@@ -179,6 +183,8 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/tricks/{trick_id}/edit", name="trick_edit")
+     * 
+     * @param int $trick_id
      */
     public function edit($trick_id, Request $request, SluggerInterface $slugger, MediaService $mediaService, EntityManagerInterface $em): Response
     {

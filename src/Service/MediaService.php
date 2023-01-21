@@ -26,6 +26,9 @@ class MediaService
         $this->params = $params;
     }
 
+    /**
+     * @param string|null $name
+     */
     public function uploadMedia(File $file, string $folder, $name = null): array
     {
         if(is_null($name)) {

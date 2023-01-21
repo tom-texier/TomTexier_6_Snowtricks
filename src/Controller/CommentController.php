@@ -28,6 +28,8 @@ class CommentController extends AbstractController
     /**
      * @Route("/trick/{id}/comment/add", name="trick_comment_add")
      * @isGranted("ROLE_USER")
+     * 
+     * @param int $id
      */
     public function add(Request $request, TrickRepository $trickRepository, EntityManagerInterface $em, $id): Response
     {
@@ -95,6 +97,8 @@ class CommentController extends AbstractController
 
     /**
      * @Route("/trick/comment/delete/{comment_id}", name="trick_comment_delete")
+     * 
+     * @param int $comment_id
      */
     public function delete($comment_id): Response
     {

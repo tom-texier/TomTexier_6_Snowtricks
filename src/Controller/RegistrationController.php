@@ -67,6 +67,8 @@ class RegistrationController extends AbstractController
 
     /**
      * @Route("/validation/{token}", name="registration_validation")
+     * 
+     * @param string $token
      */
     public function validation($token, JWTService $jwt, UserRepository $userRepository, EntityManagerInterface $em): Response
     {
@@ -98,6 +100,8 @@ class RegistrationController extends AbstractController
 
     /**
      * @Route("/resendValidation/{email}", name="registration_resend_validation")
+     * 
+     * @param string $email
      */
     public function resendValidation($email, JWTService $jwt, SendMailService $mailService, UserRepository $userRepository): Response
     {

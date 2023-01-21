@@ -43,6 +43,9 @@ class GroupType extends AbstractType
         ]);
     }
 
+    /**
+     * @param Group|null $group
+     */
     public function groupExist($group, ExecutionContextInterface $context): void
     {
         if(!$group instanceof Group) return;

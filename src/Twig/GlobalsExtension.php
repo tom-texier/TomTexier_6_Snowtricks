@@ -15,6 +15,10 @@ class GlobalsExtension extends AbstractExtension
         ];
     }
 
+    /**
+     * @param mixed $var
+     * @param mixed $instance
+     */
     public function isInstanceOf($var, $instance): bool
     {
         return $var instanceof $instance;

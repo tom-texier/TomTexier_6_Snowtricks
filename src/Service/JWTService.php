@@ -29,6 +29,9 @@ class JWTService {
         return $jwt;
     }
 
+    /**
+     * @param string|array $value
+     */
     public function encode($value, bool $to_json = true): string
     {
         if($to_json) {
@@ -45,6 +48,7 @@ class JWTService {
     }
 
     /**
+     * @param string $value
      * @return array|string
      */
     public function decode($value, bool $from_json = true)
@@ -80,6 +84,9 @@ class JWTService {
         return boolval($isValid);
     }
 
+    /**
+     * @param string $token
+     */
     public function isFormatted($token): bool
     {
         return preg_match(

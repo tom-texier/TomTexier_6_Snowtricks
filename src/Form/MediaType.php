@@ -63,6 +63,9 @@ class MediaType extends AbstractType
         ;
     }
 
+    /**
+     * @param Media|null $media
+     */
     public function validate($media, ExecutionContextInterface $context): void
     {
         if($media instanceof Media) {

@@ -52,6 +52,9 @@ class TrickType extends AbstractType
         ;
     }
 
+    /**
+     * @param Trick|null $trick
+     */
     public function trickExist($trick, ExecutionContextInterface $context): void
     {
         if(!$trick instanceof Trick) return;
