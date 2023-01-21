@@ -29,7 +29,7 @@ class JWTService {
         return $jwt;
     }
 
-    public function encode($value, bool $to_json = true)
+    public function encode($value, bool $to_json = true): string
     {
         if($to_json) {
             return $this->clean(base64_encode(json_encode($value)));
@@ -39,11 +39,14 @@ class JWTService {
         } 
     }
 
-    public function clean(string $str)
+    public function clean(string $str): string
     {
         return str_replace(['+', '/', '='], ['-', '_', ''], $str);
     }
 
+    /**
+     * @return array|string
+     */
     public function decode($value, bool $from_json = true)
     {
         if($from_json) {
@@ -77,7 +80,8 @@ class JWTService {
         return boolval($isValid);
     }
 
-    public function isFormatted($token) {
+    public function isFormatted($token): bool
+    {
         return preg_match(
             '/^[a-zA-Z0-9\-\_]+\.[a-zA-Z0-9\-\_]+\.[a-zA-Z0-9\-\_]+$/',
             $token

@@ -15,7 +15,7 @@ class GlobalsExtension extends AbstractExtension
         ];
     }
 
-    public function isInstanceOf($var, $instance)
+    public function isInstanceOf($var, $instance): bool
     {
         return $var instanceof $instance;
     }

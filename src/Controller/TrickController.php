@@ -91,7 +91,7 @@ class TrickController extends AbstractController
     /**
      * @Route("/tricks/{slug}", name="trick_show")
      */
-    public function show($slug)
+    public function show($slug): Response
     {
         $trick = $this->trickRepository->findOneBy([
             'slug' => $slug
@@ -122,7 +122,7 @@ class TrickController extends AbstractController
     /**
      * @Route("/tricks", name="trick_all")
      */
-    public function allTricks()
+    public function allTricks(): Response
     {
         return $this->redirectToRoute('homepage', [
             '_fragment' => 'all-tricks'
@@ -132,7 +132,7 @@ class TrickController extends AbstractController
     /**
      * @Route("/ajax/tricks", name="ajax_trick_getTricks", methods={"GET"}, options={"expose"=true})
      */
-    public function getTricks(Request $request)
+    public function getTricks(Request $request): Response
     {
         if (!$request->isXmlHttpRequest()) {
             return new JsonResponse(['message' => 'Accessible uniquement en Ajax !'], 400);
@@ -160,7 +160,7 @@ class TrickController extends AbstractController
     /**
      * @Route("/tricks/{trick_id}/delete", name="trick_delete")
      */
-    public function delete($trick_id)
+    public function delete($trick_id): Response
     {
         $trick = $this->trickRepository->find($trick_id);
 
@@ -180,7 +180,7 @@ class TrickController extends AbstractController
     /**
      * @Route("/tricks/{trick_id}/edit", name="trick_edit")
      */
-    public function edit($trick_id, Request $request, SluggerInterface $slugger, MediaService $mediaService, EntityManagerInterface $em)
+    public function edit($trick_id, Request $request, SluggerInterface $slugger, MediaService $mediaService, EntityManagerInterface $em): Response
     {
         $trick = $this->trickRepository->find($trick_id);
 

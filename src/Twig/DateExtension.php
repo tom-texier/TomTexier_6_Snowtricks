@@ -30,6 +30,9 @@ class DateExtension extends AbstractExtension
         ];
     }
 
+    /**
+     * @return string
+     */
     public function getFrenchDate(DateTimeImmutable $date, string $format)
     {
         $date = strtolower($date->format($format));

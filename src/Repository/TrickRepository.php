@@ -42,7 +42,7 @@ class TrickRepository extends ServiceEntityRepository
         }
     }
 
-    public function findByPage(int $page = 0)
+    public function findByPage(int $page = 0): Paginator
     {
         $query = $this->createQueryBuilder('trick')
             ->setFirstResult($page * self::MAX_PER_PAGE)

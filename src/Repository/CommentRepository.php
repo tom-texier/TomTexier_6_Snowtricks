@@ -42,7 +42,7 @@ class CommentRepository extends ServiceEntityRepository
         }
     }
 
-    public function findByPage(int $trick_id, int $page = 0)
+    public function findByPage(int $trick_id, int $page = 0): Paginator
     {
         $query = $this->createQueryBuilder('comment')
             ->andWhere('comment.trick = :val')

@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class CommentController extends AbstractController
 {
@@ -27,7 +29,7 @@ class CommentController extends AbstractController
      * @Route("/trick/{id}/comment/add", name="trick_comment_add")
      * @isGranted("ROLE_USER")
      */
-    public function add(Request $request, TrickRepository $trickRepository, EntityManagerInterface $em, $id)
+    public function add(Request $request, TrickRepository $trickRepository, EntityManagerInterface $em, $id): Response
     {
         $trick = $trickRepository->find($id);
 
@@ -65,7 +67,7 @@ class CommentController extends AbstractController
     /**
      * @Route("/ajax/comments", name="ajax_comment_getComments", methods={"GET"}, options={"expose"=true})
      */
-    public function getComments(Request $request, CommentRepository $commentRepository)
+    public function getComments(Request $request, CommentRepository $commentRepository): Response
     {
         if (!$request->isXmlHttpRequest()) {
             return new JsonResponse(['message' => 'Accessible uniquement en Ajax !'], 400);
@@ -94,7 +96,7 @@ class CommentController extends AbstractController
     /**
      * @Route("/trick/comment/delete/{comment_id}", name="trick_comment_delete")
      */
-    public function delete($comment_id)
+    public function delete($comment_id): Response
     {
         $comment = $this->commentRepository->find($comment_id);
 

@@ -363,7 +363,7 @@ class AppFixtures extends Fixture
     /**
      * @throws Exception
      */
-    private function activateForeignKeyChecks()
+    private function activateForeignKeyChecks(): void
     {
         $this->em->getConnection()->executeQuery("SET FOREIGN_KEY_CHECKS=1");
     }
@@ -371,7 +371,7 @@ class AppFixtures extends Fixture
     /**
      * @throws Exception
      */
-    private function deactivateForeignKeyChecks()
+    private function deactivateForeignKeyChecks(): void
     {
         $this->em->getConnection()->executeQuery("SET FOREIGN_KEY_CHECKS=0");
     }

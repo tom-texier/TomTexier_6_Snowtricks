@@ -101,14 +101,14 @@ class MediaService
         return $this->slugger->slug($name);
     }
 
-    public function addVideo(string $name, string $source)
+    public function addVideo(string $name, string $source): Media
     {
         $video = new Media();
 
         return $this->setVideo($video, $name, $source);
     }
 
-    public function setVideo(Media $video, string $name, string $source)
+    public function setVideo(Media $video, string $name, string $source): Media
     {
         $video
             ->setType(MediaType::TYPE_VIDEO)
@@ -119,7 +119,7 @@ class MediaService
         return $video;
     }
 
-    public function getFile(Media $media)
+    public function getFile(Media $media): UploadedFile
     {
         $mime_type = mime_content_type($this->params->get('images_directory') . $media->getFilename());
 

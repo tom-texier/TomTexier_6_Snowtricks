@@ -8,6 +8,7 @@ use App\Repository\GroupRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
@@ -16,7 +17,7 @@ class GroupController extends AbstractController
     /**
      * @Route("/ajax/groups/new", name="ajax_groups_getForm", methods={"POST"})
      */
-    public function getForm(Request $request)
+    public function getForm(Request $request): Response
     {
         $this->denyAccessUnlessGranted("ROLE_USER");
 
@@ -38,7 +39,7 @@ class GroupController extends AbstractController
     /**
      * @Route("/ajax/groups/add", name="ajax_groups_add", methods={"POST"})
      */
-    public function add(Request $request, SluggerInterface $slugger, GroupRepository $groupRepository)
+    public function add(Request $request, SluggerInterface $slugger, GroupRepository $groupRepository): Response
     {
         $this->denyAccessUnlessGranted("ROLE_USER");
 

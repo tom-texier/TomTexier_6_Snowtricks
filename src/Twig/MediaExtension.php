@@ -31,7 +31,7 @@ class MediaExtension extends AbstractExtension
         ];
     }
 
-    public function getTrickThumbnail(Trick $trick)
+    public function getTrickThumbnail(Trick $trick): array
     {
         if(empty($trick->getMedias())) {
             return [
@@ -60,7 +60,7 @@ class MediaExtension extends AbstractExtension
         return $this->packages->getUrl('assets/img/placeholder.png');
     }
 
-    private function getUploadsDirectory()
+    private function getUploadsDirectory(): string
     {
         return $this->parameterBag->get('images_directory_public');
     }
