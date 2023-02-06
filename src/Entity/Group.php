@@ -6,13 +6,12 @@ use App\Repository\GroupRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use JsonSerializable;
 
 /**
  * @ORM\Entity(repositoryClass=GroupRepository::class)
  * @ORM\Table(name="`group`")
  */
-class Group implements JsonSerializable
+class Group
 {
     /**
      * @ORM\Id
