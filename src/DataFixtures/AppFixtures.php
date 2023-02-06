@@ -198,6 +198,10 @@ class AppFixtures extends Fixture
         $this->activateForeignKeyChecks();
         $faker = Factory::create('fr_FR');
 
+        if(!is_dir($this->params->get('images_directory'))) {
+            mkdir($this->params->get('images_directory'), 0777, true);
+        }
+
         ############################## USER ADMIN ##############################
         $admin = new User();
         $hash = $this->hasher->hashPassword($admin, "1adminadmin");
