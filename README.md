@@ -20,7 +20,7 @@ Pour initialiser le projet, vous devrez avoir installé sur votre machine (les v
 
 ## Installation
 
-1. Cloner le projet à l'emplacement de vote choix
+1. Cloner le projet à l'emplacement de votre choix
 ```shell
 git clone https://github.com/tom-texier/TomTexier_6_Snowtricks.git
 ```
@@ -83,4 +83,4 @@ Ci-dessous les informations de connexion générées par le chargement des donn�
     - ID : user0
     - MDP : password
 
-Vous avez, bien sûr, la possibilité de vous inscrire sur le site en vous rendant sur la page d'inscription.
+Vous avez bien sûr la possibilité de vous inscrire sur le site en vous rendant sur la page d'inscription.
