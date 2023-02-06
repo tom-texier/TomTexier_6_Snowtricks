@@ -1,7 +1,47 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="banner banner-homepage">
-        <img src="https://via.placeholder.com/1600x700" alt="Banner homepage">
-    </div>
+    {% include '_partials/banner.html.twig' with {
+        'url': asset('assets/img/homepage-banner.jpg'),
+        'alt': 'Bannière page d\'accueil',
+        'classes': 'banner-homepage',
+        'title': "Snowtricks",
+        'subtitle': "Partagez votre passion du snowboard avec une communauté de passionés !",
+        'overlay': true
+    } %}
+
+    <section id="all-tricks">
+        {% if app.user %}
+            <div class="container">
+                <div class="row-actions">
+                    <a href="{{ path('trick_create') }}" class="row-actions-item btn">Ajouter une nouvelle figure</a>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if tricks %}
+            <div class="container tricks">
+                <div class="grid">
+                    {% for trick in tricks %}
+                        {% include "_partials/tricks/card.html.twig" with { trick } %}
+                    {% endfor %}
+                </div>
+                <a id="to-top{{ max_per_page * next_page > max_per_page ? ' active' : '' }}" href="#all-tricks">
+                    <i class="fas fa-arrow-up"></i>
+                </a>
+            </div>
+            {% if found_items > max_per_page * next_page %}
+                <div class="container">
+                    <a href="{{ path('ajax_trick_getTricks') }}" class="btn" id="get-more-tricks" data-next-page="{{ next_page }}">En voir plus</a>
+                </div>
+            {% endif %}
+        {% else %}
+            <div class="alert alert-info">
+                <div>Aucune figure n'a été trouvée</div>
+                {% if app.user %}
+                    <div>Vous pouvez en créer une en cliquant sur le bouton ci-dessus</div>
+                {% endif %}
+            </div>
+        {% endif %}
+    </section>
 {% endblock %}

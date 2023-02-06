@@ -1,0 +1,24 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
+.container {
+  max-width: 1350px;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 0 10px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+img {
+  transition: .2s ease;
+
+  &[data-lazy] {
+    opacity: 0;
+  }
+}

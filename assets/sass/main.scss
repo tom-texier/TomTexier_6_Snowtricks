@@ -1,14 +1,28 @@
 // Utils
+@import "utils/variables";
+@import "utils/mixins";
 
 // Vendors
 
 // Base
+@import "base/typography";
+@import "base/base";
 
 // Components
+@import "components/buttons";
+@import "components/alerts";
 @import "components/banner";
+@import "components/trick-card";
+@import "components/loader";
+@import "components/modal";
 
 // Layouts
+@import "layouts/header";
+@import "layouts/footer";
+@import "layouts/forms";
 
 // Pages
+@import "pages/home";
+@import "pages/single-trick";
 
 // Themes

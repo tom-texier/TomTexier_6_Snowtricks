@@ -1,0 +1,33 @@
+<header class="main-header">
+    <nav class="container">
+        <a href="{{ path("homepage") }}" class="logo">
+            <img src="{{ asset("assets/img/logo.png") }}" alt="Logo du site">
+            Snowtricks
+        </a>
+
+        <ul class="main-menu">
+            <li><a href="{{ path("homepage") }}">Accueil</a></li>
+            <li><a href="/#all-tricks">Figures</a></li>
+            {% if not app.user %}
+                <li><a href="{{ path("security_login") }}">Se connecter</a></li>
+                <li><a href="{{ path("registration_register") }}">S'inscrire</a></li>
+            {% else %}
+                <li><a href="{{ path("profile_index") }}">Mon compte</a></li>
+                <li><a href="{{ path("security_logout") }}">Déconnexion</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</header>
+
+<nav id="menu-bar">
+    <ul>
+        <li><a href="{{ path("homepage") }}" title="Accueil"><i class="fas fa-home"></i></a></li>
+        <li><a href="/#all-tricks" title="Voir les figures"><i class="fas fa-bookmark"></i></a></li>
+        {% if not app.user %}
+            <li><a href="{{ path("security_login") }}" title="Se connecter"><i class="fas fa-sign-in-alt"></i></a></li>
+        {% else %}
+            <li><a href="{{ path("profile_index") }}" title="Mon compte"><i class="fas fa-user-cog"></i></a></li>
+            <li><a href="{{ path("security_logout") }}" title="Déconnexion"><i class="fas fa-sign-out-alt"></i></a></li>
+        {% endif %}
+    </ul>
+</nav>

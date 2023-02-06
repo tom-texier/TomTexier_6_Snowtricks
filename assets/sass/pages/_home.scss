@@ -1,0 +1,114 @@
+.banner.banner-homepage {
+  height: 80vh;
+}
+
+a#see-tricks {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  color: #fff;
+  background-color: $color-primary;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  text-decoration: none;
+  border-radius: 50%;
+  transition: .4s ease;
+
+  &:hover {
+    background-color: $color-accent;
+  }
+}
+
+#all-tricks {
+  margin: 30px 0;
+
+  .row-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+
+    &-item {
+      width: 100%;
+      max-width: max-content;
+      margin: 0;
+    }
+  }
+
+  .container.tricks {
+    position: relative;
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 20px;
+
+      @include responsiveWidth(1024px) {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      @include responsiveWidth(850px) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      @include responsiveWidth(675px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      @include responsiveWidth(480px) {
+        grid-template-columns: repeat(1, 1fr);
+      }
+    }
+
+    #to-top {
+      display: none;
+      position: sticky;
+      margin-top: 10px;
+      bottom: 30px;
+      margin-left: auto;
+      width: max-content;
+      text-decoration: none;
+
+      @include responsiveWidth(600px) {
+        bottom: 60px;
+      }
+
+      i {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        color: #fff;
+        background-color: $color-primary;
+      }
+
+      &:hover i {
+        animation: slideUp .5s ease alternate infinite;
+      }
+
+      &.active {
+        display: flex;
+      }
+    }
+  }
+
+  .loader {
+    display: block;
+    margin: 20px auto 0;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-20px);
+  }
+}

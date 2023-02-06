@@ -1,0 +1,24 @@
+.alert {
+  margin: 5px 0;
+  border-radius: 10px;
+  border: 1px solid;
+  padding: 10px;
+
+  &-success {
+    border-color: $alert-success;
+    color: $alert-success;
+    background-color: rgba(60, 220, 20, .1);
+  }
+
+  &-error, &-danger {
+    border-color: $alert-error;
+    color: $alert-error;
+    background-color: rgba(220, 20, 60, .1)
+  }
+
+  &-info {
+    border-color: $alert-info;
+    color: $alert-info;
+    background-color: rgba(20, 60, 220, .1);
+  }
+}
