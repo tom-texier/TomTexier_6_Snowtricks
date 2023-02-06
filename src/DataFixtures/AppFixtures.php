@@ -215,7 +215,7 @@ class AppFixtures extends Fixture
         $hash = $this->hasher->hashPassword($admin, "1adminadmin");
 
         $admin
-            ->setEmail("tom.texierpro@gmail.com")
+            ->setEmail("admin@admin.fr")
             ->setPassword($hash)
             ->setFirstname("Admin")
             ->setLastname("Snowtricks")
@@ -237,7 +237,7 @@ class AppFixtures extends Fixture
                 ->setPassword($hash)
                 ->setFirstname($faker->firstName())
                 ->setLastname($faker->lastName())
-                ->setUsername($faker->userName())
+                ->setUsername("user$u")
                 ->setVerified(1);
 
             $filename = $faker->randomElement(self::AVATAR_IMG);
