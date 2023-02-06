@@ -6,9 +6,9 @@
 [![Twig Badge](https://img.shields.io/badge/Twig-3.5-bacf29?style=flat-square&logo=symfony&logoColor=white/)](https://twig.symfony.com/) 
 [![Composer Badge](https://img.shields.io/badge/Composer-2.4-6c3e22?style=flat-square&logo=composer&logoColor=white/)](https://getcomposer.org/)
 [![PHP Badge](https://img.shields.io/badge/PHP-7.4-7a86b8?style=flat-square&logo=php&logoColor=white/)](https://www.php.net/)
-[![HTML5 Badge](https://img.shields.io/badge/HTML-5-e34f26?style=flat-square&logo=html5&logoColor=white/)](https://www.php.net/)
-[![CSS3 Badge](https://img.shields.io/badge/CSS-3-1572B6?style=flat-square&logo=css3&logoColor=white/)](https://www.php.net/)
-[![Node Badge](https://img.shields.io/badge/Node-18.9-339933?style=flat-square&logo=Node.js&logoColor=white/)](https://www.php.net/)
+![HTML5 Badge](https://img.shields.io/badge/HTML-5-e34f26?style=flat-square&logo=html5&logoColor=white/)
+![CSS3 Badge](https://img.shields.io/badge/CSS-3-1572B6?style=flat-square&logo=css3&logoColor=white/)
+[![Node Badge](https://img.shields.io/badge/Node-18.9-339933?style=flat-square&logo=Node.js&logoColor=white/)](https://nodejs.org/fr/)
 
 ## Prérequis d'installation
 
