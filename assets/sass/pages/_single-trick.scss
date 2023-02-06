@@ -1,206 +1,243 @@
 .single-trick {
-  #medias-slider {
-    margin: 50px 0;
-
-    .slick-track {
-      padding: 20px 0;
-
-      .slick-slide {
-        padding: 0 10px;
-        height: 250px;
-        position: relative;
-
-        > div {
-          width: 100%;
-          height: 100%;
-        }
-      }
-    }
-
-    .slick-arrow {
-      position: absolute;
-      top: 50%;
-      width: 40px;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 2;
-      color: $color-text;
-      cursor: pointer;
-      font-size: 25px;
-
-      &.slick-prev {
-        left: 0;
-        transform: translate(-100%, -50%);
-      }
-
-      &.slick-next {
-        right: 0;
-        transform: translate(100%, -50%);
-      }
-    }
-
-    .media-item {
-      border-radius: 15px;
-      overflow: hidden;
-      position: relative;
-      width: 100%;
-      height: 100%;
-      box-shadow: 0 0 10px -5px rgba(0, 0, 0, .3);
-
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      iframe {
-        width: 100%;
-        height: 100%;
-      }
-    }
-  }
-
-  .metas {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    margin: 25px 0;
-
-    .tag {
-      background-color: $color-accent;
-      color: #fff;
-      font-size: 16px;
-      border-radius: 10px;
-      padding: 4px 20px;
-    }
-  }
-
-  .form-container {
-    margin-top: 0;
-    min-height: unset;
-    position: relative;
-    padding: 25px 0;
-
-    form {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-
-      > div {
-        margin: 0;
-        width: 500px;
-      }
-
-      button {
-        margin: 0;
-        width: max-content;
-        padding: 7px 10px;
-      }
-    }
-
-    &::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      width: 70%;
-      height: 1px;
-      background-color: rgba(0, 0, 0, .3);
-      left: 50%;
-      transform: translateX(-50%);
-    }
-  }
-
-  .comments {
-    .comments-list {
-      position: relative;
-      padding: 25px 0;
-
-      &::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        width: 70%;
-        height: 1px;
-        background-color: rgba(0, 0, 0, .3);
-        left: 50%;
-        transform: translateX(-50%);
-      }
-
-      .comment {
+    .trick_actions_container {
+        position: fixed;
+        top: 90px;
+        right: 10px;
+        background-color: #fff;
         display: flex;
-        gap: 20px;
-        width: 700px;
-        max-width: 100%;
-        margin: auto;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 0 10px -2px rgba(0, 0, 0, .4);
+        z-index: 99;
 
-        &__author-avatar {
-          width: 50px;
-          height: 50px;
-          overflow: hidden;
-          border-radius: 50%;
-          margin-top: 10px;
+        @include responsiveWidth(600px) {
+            top: 15px;
+        }
 
-          img {
+        .button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px 10px;
+            color: $color-text;
+            text-decoration: none;
+            transition: .4s ease;
+
+            &:not(:last-child) {
+                border-right: 1px solid $color-text;
+            }
+
+            &:hover {
+                background-color: $color-accent;
+                color: #fff;
+            }
+        }
+    }
+
+    #medias-slider {
+        margin: 50px 0;
+
+        .slick-track {
+            padding: 20px 0;
+
+            .slick-slide {
+                padding: 0 10px;
+                height: 250px;
+                position: relative;
+
+                > div {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+
+        .slick-arrow {
+            position: absolute;
+            top: 50%;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            color: $color-text;
+            cursor: pointer;
+            font-size: 25px;
+            background-color: #fff;
+            box-shadow: 0 0 10px -5px rgba(0, 0, 0, .4);
+            transform: translateY(-50%);
+
+            &.slick-prev {
+                left: 20px;
+            }
+
+            &.slick-next {
+                right: 20px;
+            }
+        }
+
+        .media-item {
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-          }
-        }
+            box-shadow: 0 0 10px -5px rgba(0, 0, 0, .3);
 
-        &__content {
-          background-color: $color-secondary;
-          flex: 1;
-          padding: 10px 20px;
-          border-radius: 15px;
-          position: relative;
-
-          &__author-username {
-            margin-bottom: 2px;
-          }
-
-          &__date {
-            color: darken($color-secondary, 40%);
-            font-size: 12px;
-            margin-bottom: 15px;
-          }
-
-          &__actions {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            display: flex;
-
-            a {
-              display: block;
-              color: $color-text;
-              transition: .4s ease;
-              font-size: 14px;
-
-              &:hover {
-                color: $color-accent;
-              }
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
             }
-          }
+
+            iframe {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+
+    .metas {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 20px;
+        justify-content: center;
+        margin: 25px 0;
+
+        .tag {
+            background-color: $color-accent;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 10px;
+            padding: 4px 20px;
+        }
+    }
+
+    .form-container {
+        margin-top: 0;
+        min-height: unset;
+        position: relative;
+        padding: 25px 0;
+
+        form {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+
+            > div {
+                margin: 0;
+                width: 500px;
+            }
+
+            button {
+                margin: 0;
+                width: max-content;
+                padding: 7px 10px;
+            }
         }
 
-        &:not(:last-child) {
-          margin-bottom: 20px;
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 70%;
+            height: 1px;
+            background-color: rgba(0, 0, 0, .3);
+            left: 50%;
+            transform: translateX(-50%);
         }
-      }
     }
 
-    a#get-more-comments {
-      max-width: 100%;
-      width: max-content;
-    }
+    .comments {
+        .comments-list {
+            position: relative;
+            padding: 25px 0;
 
-    .loader {
-      display: block;
-      margin: auto;
+            &::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                width: 70%;
+                height: 1px;
+                background-color: rgba(0, 0, 0, .3);
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .comment {
+                display: flex;
+                gap: 20px;
+                width: 700px;
+                max-width: 100%;
+                margin: auto;
+
+                &__author-avatar {
+                    width: 50px;
+                    height: 50px;
+                    overflow: hidden;
+                    border-radius: 50%;
+                    margin-top: 10px;
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+                }
+
+                &__content {
+                    background-color: $color-secondary;
+                    flex: 1;
+                    padding: 10px 20px;
+                    border-radius: 15px;
+                    position: relative;
+
+                    &__author-username {
+                        margin-bottom: 2px;
+                    }
+
+                    &__date {
+                        color: darken($color-secondary, 40%);
+                        font-size: 12px;
+                        margin-bottom: 15px;
+                    }
+
+                    &__actions {
+                        position: absolute;
+                        top: 10px;
+                        right: 10px;
+                        display: flex;
+
+                        a {
+                            display: block;
+                            color: $color-text;
+                            transition: .4s ease;
+                            font-size: 14px;
+
+                            &:hover {
+                                color: $color-accent;
+                            }
+                        }
+                    }
+                }
+
+                &:not(:last-child) {
+                    margin-bottom: 20px;
+                }
+            }
+        }
+
+        a#get-more-comments {
+            max-width: 100%;
+            width: max-content;
+        }
+
+        .loader {
+            display: block;
+            margin: auto;
+        }
     }
-  }
 }

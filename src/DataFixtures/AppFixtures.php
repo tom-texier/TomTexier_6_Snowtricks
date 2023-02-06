@@ -38,7 +38,15 @@ class AppFixtures extends Fixture
                 [
                     'is_image' => false,
                     'source' => '<iframe width="560" height="315" src="https://www.youtube.com/embed/8KotvBY28Mo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
-                ]
+                ],
+                [
+                    'is_image' => true,
+                    'filename' => '6.png'
+                ],
+                [
+                    'is_image' => true,
+                    'filename' => '1.png'
+                ],
             ]
         ],
         [
@@ -207,7 +215,7 @@ class AppFixtures extends Fixture
         $hash = $this->hasher->hashPassword($admin, "1adminadmin");
 
         $admin
-            ->setEmail("admin@gmail.com")
+            ->setEmail("tom.texierpro@gmail.com")
             ->setPassword($hash)
             ->setFirstname("Admin")
             ->setLastname("Snowtricks")

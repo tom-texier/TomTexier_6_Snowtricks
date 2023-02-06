@@ -5,8 +5,15 @@
         <div class="overlay"></div>
     {% endif %}
 
-    {% if title is defined %}
-        <h1>{{ title }}</h1>
+    {% if title is defined or subtitle is defined %}
+        <div class="content">
+            {% if title is defined %}
+                <h1>{{ title }}</h1>
+            {% endif %}
+            {% if subtitle is defined %}
+                <h2>{{ subtitle }}</h2>
+            {% endif %}
+        </div>
     {% endif %}
 
     {% if classes is defined and classes == 'banner-homepage' %}

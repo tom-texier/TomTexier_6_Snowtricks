@@ -79,7 +79,7 @@ class TrickVoter extends Voter
      * @param User $user
      * @return bool
      */
-    private function canDelete(Trick $trick, User $user): bool
+    private function canDelete($trick, User $user): bool
     {
         if(!$trick instanceof Trick) {
             $trick = $this->trickRepository->find(intval($trick));

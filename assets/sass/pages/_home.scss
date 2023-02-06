@@ -46,6 +46,22 @@ a#see-tricks {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
       gap: 20px;
+
+      @include responsiveWidth(1024px) {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      @include responsiveWidth(850px) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      @include responsiveWidth(675px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      @include responsiveWidth(480px) {
+        grid-template-columns: repeat(1, 1fr);
+      }
     }
 
     #to-top {
@@ -56,6 +72,10 @@ a#see-tricks {
       margin-left: auto;
       width: max-content;
       text-decoration: none;
+
+      @include responsiveWidth(600px) {
+        bottom: 60px;
+      }
 
       i {
         display: flex;

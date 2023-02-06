@@ -19,6 +19,27 @@
         'overlay': true
     } %}
 
+    {% if(is_granted('TRICK_EDIT', trick) or is_granted('TRICK_DELETE', trick)) %}
+        <div class="trick_actions_container">
+            {% if(is_granted('TRICK_EDIT', trick)) %}
+                <a class="button edit" href="{{ path('trick_edit', {'trick_id': trick.id}) }}" title="Modifier"><i class="fas fa-pencil-alt"></i></a>
+            {% endif %}
+            {% if(is_granted('TRICK_DELETE', trick)) %}
+                <a
+                    href="{{ path('trick_delete', {'trick_id': trick.id}) }}"
+                    class="button delete"
+                    title="Supprimer"
+                    data-trigger="custom-modal"
+                    data-action="delete"
+                    data-modal-title="Êtes-vous sûr ?"
+                    data-modal-content="Êtes-vous sûr de vouloir supprimer cette figure ? Cette action est irréversible, une fois la figure supprimée, vous ne pourrez plus la récupérer."
+                >
+                    <i class="fas fa-trash-alt"></i>
+                </a>
+            {% endif %}
+        </div>
+    {% endif %}
+
     <div class="container">
         {% if trick.medias %}
             <section class="medias" id="medias-slider">

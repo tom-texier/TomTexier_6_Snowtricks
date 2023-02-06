@@ -18,3 +18,16 @@
         </ul>
     </nav>
 </header>
+
+<nav id="menu-bar">
+    <ul>
+        <li><a href="{{ path("homepage") }}" title="Accueil"><i class="fas fa-home"></i></a></li>
+        <li><a href="/#all-tricks" title="Voir les figures"><i class="fas fa-bookmark"></i></a></li>
+        {% if not app.user %}
+            <li><a href="{{ path("security_login") }}" title="Se connecter"><i class="fas fa-sign-in-alt"></i></a></li>
+        {% else %}
+            <li><a href="{{ path("profile_index") }}" title="Mon compte"><i class="fas fa-user-cog"></i></a></li>
+            <li><a href="{{ path("security_logout") }}" title="Déconnexion"><i class="fas fa-sign-out-alt"></i></a></li>
+        {% endif %}
+    </ul>
+</nav>

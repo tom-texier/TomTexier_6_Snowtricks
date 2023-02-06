@@ -6,4 +6,8 @@ footer.main-footer {
         padding-top: 20px;
         padding-bottom: 20px;
     }
+
+    @include responsiveWidth(600px) {
+        margin-bottom: 53px;
+    }
 }
